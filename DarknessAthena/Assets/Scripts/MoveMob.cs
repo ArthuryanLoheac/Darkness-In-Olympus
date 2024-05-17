@@ -32,7 +32,7 @@ public class MoveMob : MonoBehaviour
             Player_pos.position.x - transform.position.x);
         ray = Physics2D.Raycast(transform.position,
             new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero)));
-        if (ray.collider && ray.collider.gameObject.tag == "Player")
+        if (ray.collider && ray.collider.tag == "Player")
             return true;
         return false;
     }
@@ -47,7 +47,8 @@ public class MoveMob : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (is_player_in_sight())
+        if (is_player_in_sight()) {
             Run_into_Player();
+        }
     }
 }
