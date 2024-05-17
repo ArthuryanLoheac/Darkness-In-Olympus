@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 4d0458b3cb4b3dc4b9160701a7b41d24
+  productGUID: 9cda3fde4a38e4c46ac84cfb9ccfdff8
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: DarknessInAthenes
+  productName: My project
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -591,14 +591,14 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: DarknessInAthenes
+  metroPackageName: My project
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: DarknessInAthenes
+  metroApplicationDescription: My project
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -666,10 +666,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 572b9a5c-475f-49a3-8124-fae7f8fa7b0c
+  cloudProjectId: 2884791b-53e6-4763-ad70-87cf60de54a8
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: DarknessInAthenes
+  projectName: My project 2024-05-18_00-07-29
   organizationId: crystobal
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
