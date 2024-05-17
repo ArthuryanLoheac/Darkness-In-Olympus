@@ -7,18 +7,19 @@ public class MoveMob : MonoBehaviour
     private GameObject Player;
     private Transform Player_pos;
     private float distance_from_player;
-    private RaycastHit2D ray;
+    private RaycastHit2D[] ray_list;
     private float Angle_to_Hero;
     private float speed_max;
     private float speed;
     private float Detection_Range;
+    private Vector2 offset;
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
-        speed_max = 0.25f;
+        speed_max = 0.15f;
         Detection_Range = 1.5f;
     }
 
@@ -30,11 +31,13 @@ public class MoveMob : MonoBehaviour
             return false;
         Angle_to_Hero = Mathf.Atan2(Player_pos.position.y - transform.position.y,
             Player_pos.position.x - transform.position.x);
-        ray = Physics2D.Raycast(transform.position,
+        ray_list = Physics2D.RaycastAll(transform.position,
             new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero)));
-        if (ray.collider && ray.collider.tag == "Player")
-            return true;
-        return false;
+        foreach (RaycastHit2D ray in ray_list) {
+            if (ray.collider.tag != "Player" && ray.collider.tag != "Ennemy")
+                return false;
+        }
+        return true;
     }
 
     private void Run_into_Player()
