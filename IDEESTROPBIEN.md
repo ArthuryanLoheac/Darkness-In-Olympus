@@ -14,6 +14,8 @@ Gras = Optionnel
 
 - Ennemis sont repoussés par la lumière
 
-- Points d'interet a aller allumer pour gagner et illuminer tout le monde
+- Points d'interet a aller allumer pour gagner et illuminer tout le monde **(Permet de gagner des stats (PV / Carburant max/ Reduction du carburant)**
+- **Point d'interet pour augmenter ses stats**
+- Points d'interet de carburant pour recharger sa flamme
 
 - Map Hardcodé pour l'instant
