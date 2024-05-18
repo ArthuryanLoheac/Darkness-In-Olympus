@@ -26,7 +26,7 @@ public class MoveMob : MonoBehaviour
     {
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
-        speed_max = 0.15f;
+        speed_max = 0.3f;
         Detection_Range = 20f;
         is_moving = true;
         time_before_re_moving = 1f;

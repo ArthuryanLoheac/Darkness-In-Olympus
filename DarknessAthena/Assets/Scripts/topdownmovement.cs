@@ -12,7 +12,7 @@ public class topdownmovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 200f;
+        moveSpeed = 4f;
     }
 
     // Update is called once per frame
@@ -28,6 +28,7 @@ public class topdownmovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, 0);
         moveInput.Normalize();
 
-        rb2d.velocity = moveInput * moveSpeed * Time.deltaTime;
+        rb2d.MovePosition(transform.position + new Vector3(moveInput.x, moveInput.y, 0)
+            * moveSpeed * Time.deltaTime);
     }
 }
