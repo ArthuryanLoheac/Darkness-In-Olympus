@@ -161,7 +161,7 @@ MonoBehaviour:
   - {x: 0.08000004, y: -0.07999998, z: 0}
   m_ShapePathHash: 1284396213
   m_Mesh: {fileID: 0}
-  m_InstanceId: -6634
+  m_InstanceId: -10996
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.08000004, y: 0.07999998, z: 0}
@@ -235,6 +235,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2086992606277603303}
     m_Modifications:
+    - target: {fileID: 800106191951062929, guid: c8afe858293b9644f88f786d02db6161, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 800106191951062929, guid: c8afe858293b9644f88f786d02db6161, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 800106191951062929, guid: c8afe858293b9644f88f786d02db6161, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 467462647
+      objectReference: {fileID: 0}
     - target: {fileID: 1498047582387665833, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 3
