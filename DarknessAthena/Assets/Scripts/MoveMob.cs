@@ -38,7 +38,7 @@ public class MoveMob : MonoBehaviour
     
         Torch = Player_pos.GetChild(0).gameObject;
         distance_from_torch = Vector2.Distance(Torch.GetComponent<Transform>().position,
-            transform.position);
+            new Vector3(transform.position.x, transform.position.y, transform.position.z));
         radius_torch = Torch.GetComponent<CircleCollider2D>().radius;
         if (Torch.GetComponent<basic_torch>().state == true &&
             distance_from_torch + offset <= radius_torch) {
@@ -70,7 +70,7 @@ public class MoveMob : MonoBehaviour
         transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
     }
 
-    void Update()
+    private void Update_Moving()
     {
         if (!is_moving) {
             time_before_re_moving -= Time.deltaTime;
@@ -82,6 +82,11 @@ public class MoveMob : MonoBehaviour
         } else if (in_light(-0.1f)) {
             Run_into_Player(-1f);
         }
+    }
+
+    void Update()
+    {
+        Update_Moving();
     }
 
     void OnCollisionStay2D(Collision2D collisionInfo)
