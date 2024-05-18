@@ -98,8 +98,9 @@ public class MoveMob : MonoBehaviour
         Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
         transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
 
-        transform.rotation = Quaternion.Euler(0, 0,
-            Mathf.PingPong(Time.time * 100, 10) - 5);
+        if (Ennemy_Type != 2)
+            transform.rotation = Quaternion.Euler(0, 0,
+                Mathf.PingPong(Time.time * 100, 10) - 5);
     }
 
     private void Update_Moving()
@@ -111,7 +112,8 @@ public class MoveMob : MonoBehaviour
         }
         distance_from_player = Vector2.Distance(Player_pos.position,
             transform.position);
-        if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) || distance_from_player <= Attack_Range) {
+        if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) ||
+                distance_from_player <= Attack_Range) {
             Run_into_Player(1f);
         } else if (in_light(-0.105f)) {            
             transform.rotation = Quaternion.Euler(0, 0, 0);

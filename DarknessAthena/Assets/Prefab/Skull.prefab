@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5303239720440724811}
   - component: {fileID: 147868138477216197}
   - component: {fileID: 2279653889940231741}
-  - component: {fileID: 8472387887484104328}
+  - component: {fileID: 8295227113947177845}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Ennemy
@@ -193,7 +193,7 @@ MonoBehaviour:
   - {x: -0.037617177, y: -0.07088876, z: 0}
   m_ShapePathHash: 510138253
   m_Mesh: {fileID: 0}
-  m_InstanceId: -2524
+  m_InstanceId: 36794
   m_LocalBounds:
     m_Center: {x: 0.0010130852, y: -0.0017456412, z: 0}
     m_Extent: {x: 0.08105756, y: 0.07164705, z: 0}
@@ -236,7 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c1ffaeb3dfc38428c0b83218051b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &8472387887484104328
+  Life: 0
+--- !u!95 &8295227113947177845
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -246,7 +247,7 @@ Animator:
   m_GameObject: {fileID: 1863339119555243942}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 18f34230478f3e644937a7327d15867f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 72de9bc45f975804ab7fca974f843ca4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
