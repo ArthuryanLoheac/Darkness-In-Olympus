@@ -18,7 +18,24 @@ public class topdownmovement : MonoBehaviour
     void Update()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
+        if (moveInput.x > 0){
+            
+            transform.Rotate(0, 0, 1);
+            transform.Rotate(0, 0, -1);
+        }
+        if (moveInput.x < 0){
+            transform.Rotate(0, 0, -2);
+            transform.Rotate(0, 0, 1);
+        }
         moveInput.y = Input.GetAxisRaw("Vertical");
+        if (moveInput.y > 0){
+            transform.Rotate(0, 0, 2);
+            transform.Rotate(0, 0, -1);
+        }
+        if (moveInput.y < 0){
+            transform.Rotate(0, 0, -2);
+            transform.Rotate(0, 0, 1);
+        }
 
         moveInput.Normalize();
 
