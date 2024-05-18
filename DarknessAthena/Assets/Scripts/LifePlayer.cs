@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LifePlayer : MonoBehaviour
 {
@@ -38,8 +39,10 @@ public class LifePlayer : MonoBehaviour
             Life -= intensity;
             Invisibility_time = 0.4f;
         }
-        if (Life <= 0f)
+        if (Life <= 0f) {
             this.gameObject.SetActive(false);
+            SceneManager.LoadScene(2);
+        }
     }
 
     void OnCollisionStay2D(Collision2D collisionInfo)
