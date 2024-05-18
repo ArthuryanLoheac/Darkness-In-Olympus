@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2086992606277603303}
   - component: {fileID: 5580380413368322036}
   - component: {fileID: 3614921618604919679}
-  - component: {fileID: 5687364031984454454}
   - component: {fileID: 1306427321063105220}
+  - component: {fileID: 5668334602148281838}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3f44ab3fac6825d4cbb5f8caacbbe341, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -133,36 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1355313, y: 0.047231063}
   m_EdgeRadius: 0
---- !u!114 &5687364031984454454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2546669329022679962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.08000004, y: -0.07999998, z: 0}
-  - {x: -0.08000004, y: 0.07999998, z: 0}
-  - {x: 0.08000004, y: 0.07999998, z: 0}
-  - {x: 0.08000004, y: -0.07999998, z: 0}
-  m_ShapePathHash: 1284396213
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 28298
-  m_LocalBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.08000004, y: 0.07999998, z: 0}
 --- !u!50 &1306427321063105220
 Rigidbody2D:
   serializedVersion: 4
@@ -190,6 +160,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5668334602148281838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2546669329022679962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d4e380178ffdd439295339d1edadf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Invisibility_time: 0
 --- !u!1001 &9186796825779497775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -242,9 +225,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6879208446672725988, guid: c8afe858293b9644f88f786d02db6161, type: 3}
+      propertyPath: state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7579875369198851874, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: m_Name
       value: basic_torch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579875369198851874, guid: c8afe858293b9644f88f786d02db6161, type: 3}
+      propertyPath: m_TagString
+      value: Torch
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
