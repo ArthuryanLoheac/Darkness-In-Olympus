@@ -4842,7 +4842,7 @@ GameObject:
   - component: {fileID: 2268253312484252583}
   - component: {fileID: 3842540561224640025}
   - component: {fileID: 7946459263277709269}
-  - component: {fileID: 2821581684014599301}
+  - component: {fileID: 8313414243882938226}
   m_Layer: 0
   m_Name: Brasero
   m_TagString: Torch
@@ -4980,11 +4980,11 @@ MonoBehaviour:
   - {x: 0.07999992, y: -0.07999998, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -36004
+  m_InstanceId: -62080
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.07999992, y: 0.07999998, z: 0}
---- !u!114 &2821581684014599301
+--- !u!114 &8313414243882938226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4993,10 +4993,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3053010601405580290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 837a1d14180e36d46b2f615e5b4eee44, type: 3}
+  m_Script: {fileID: 11500000, guid: 86547cc6b5e2538488c2a3f7ca5f2152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuel: 94.779564
+  max_fuel: 100
+  fuel: 100
+  consumption_rate: 0.1
+  max_radius: 0.5
   state: 1
   particles: {fileID: 2534833612755211406}
   light_torch: {fileID: 9046761280188031707}

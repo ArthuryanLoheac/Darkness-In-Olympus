@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6737990817115821973}
   m_Layer: 0
   m_Name: Particle System
-  m_TagString: Untagged
+  m_TagString: Particules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5012,7 +5012,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86547cc6b5e2538488c2a3f7ca5f2152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  max_fuel: 100
   fuel: 100
+  consumption_rate: 1
+  max_radius: 1.5
   state: 1
   particles: {fileID: 4299101397715150685}
   light_torch: {fileID: 1498047582387665833}

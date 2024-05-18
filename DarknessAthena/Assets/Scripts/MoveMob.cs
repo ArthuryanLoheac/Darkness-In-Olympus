@@ -24,7 +24,6 @@ public class MoveMob : MonoBehaviour
     private float distance_from_torch;
     private float radius_torch;
 
-    private GameObject Torch;
     private PauseCheck PauseManager;
 
 
@@ -65,19 +64,52 @@ public class MoveMob : MonoBehaviour
         }
     }
 
+    private void Run_into_Player(float speed_boost, Transform obj_transform)
+    {
+        Angle_to_Hero = Mathf.Atan2(obj_transform.position.y - transform.position.y,
+            obj_transform.position.x - transform.position.x);
+
+        Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
+        transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
+
+        if (Ennemy_Type != 2)
+            transform.rotation = Quaternion.Euler(0, 0,
+                Mathf.PingPong(Time.time * 100, 10) - 5);
+    }
+
     private bool in_light(float offset)
     {
         distance_from_torch = 0f;
     
-        Torch = Player_pos.GetChild(0).gameObject;
-        distance_from_torch = Vector2.Distance(Torch.GetComponent<Transform>().position,
-            new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z));
-        radius_torch = Torch.GetComponent<CircleCollider2D>().radius;
-        if (Torch.GetComponent<basic_torch>().state == true &&
-            distance_from_torch + offset <= radius_torch) {
-            return true;
-        } else
-            return false;
+        GameObject[] LstTorch = GameObject.FindGameObjectsWithTag("Torch");
+        foreach (GameObject one_torch in LstTorch) {
+            distance_from_torch = Vector2.Distance(one_torch.GetComponent<Transform>().position,
+                new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z));
+            radius_torch = one_torch.GetComponent<CircleCollider2D>().radius;
+            if (one_torch.GetComponent<basic_torch>().state == true &&
+                distance_from_torch + offset <= radius_torch) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool in_light_run_out(float offset)
+    {
+        distance_from_torch = 0f;
+    
+        GameObject[] LstTorch = GameObject.FindGameObjectsWithTag("Torch");
+        foreach (GameObject one_torch in LstTorch) {
+            distance_from_torch = Vector2.Distance(one_torch.GetComponent<Transform>().position,
+                new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z));
+            radius_torch = one_torch.GetComponent<CircleCollider2D>().radius;
+            if (one_torch.GetComponent<basic_torch>().state == true &&
+                distance_from_torch + offset <= radius_torch) {
+                Run_into_Player(-1f, one_torch.GetComponent<Transform>());
+                return true;
+            }
+        }
+        return false;
     }
 
     private bool is_player_in_sight()
@@ -95,16 +127,6 @@ public class MoveMob : MonoBehaviour
         return true;
     }
 
-    private void Run_into_Player(float speed_boost)
-    {
-        Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
-        transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
-
-        if (Ennemy_Type != 2)
-            transform.rotation = Quaternion.Euler(0, 0,
-                Mathf.PingPong(Time.time * 100, 10) - 5);
-    }
-
     private void Update_Moving()
     {
         if (!is_moving) {
@@ -116,10 +138,9 @@ public class MoveMob : MonoBehaviour
             transform.position);
         if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) ||
                 distance_from_player <= Attack_Range) {
-            Run_into_Player(1f);
-        } else if (in_light(-0.105f)) {            
+            Run_into_Player(1f, Player_pos);
+        } else if (in_light_run_out(-0.105f)) {            
             transform.rotation = Quaternion.Euler(0, 0, 0);
-            Run_into_Player(-1f);
         }
     }
 
