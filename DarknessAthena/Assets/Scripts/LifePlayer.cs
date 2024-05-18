@@ -7,15 +7,21 @@ using UnityEngine.SceneManagement;
 public class LifePlayer : MonoBehaviour
 {
     private float Life;
+    private float max_life;
+    [SerializeField]
     private float Invisibility_time;
 
     // Start is called before the first frame update
     void Start()
     {
-        Life = 40f;
+        max_life = 100f;
+        Life = max_life;
         Invisibility_time = 0f;
     }
-
+    public float get_life_as_percent()
+    {
+        return  (Life * 100) / max_life;
+    }
     void Update()
     {
         Invisibility_time -= Time.deltaTime;

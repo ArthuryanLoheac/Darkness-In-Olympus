@@ -26,9 +26,9 @@ public class basic_torch : MonoBehaviour
     }
     private void update_torch_radius(float time_spent)
     {
-        if (state && fuel > 0)
+        if (state && fuel > 0.2)
             fuel -= time_spent * consumption_rate;
-        hitbox.radius = (fuel * max_radius) / max_fuel - 0.2f;
+        hitbox.radius = (fuel * max_radius) / max_fuel;
         var emission = particles.emission;
         emission.rateOverTime = (fuel * 1000) / max_fuel;
     }
@@ -36,8 +36,8 @@ public class basic_torch : MonoBehaviour
     {
         update_torch_radius(Time.deltaTime);
         light_torch.intensity = Mathf.Log(Mathf.PingPong(Time.time, 1) + 2f);
-        light_torch.pointLightOuterRadius = (fuel * max_radius) / max_fuel;
-        light_torch.pointLightInnerRadius = (fuel * max_radius) / max_fuel - 0.2f;
+        light_torch.pointLightOuterRadius =  (fuel * max_radius) / max_fuel + 0.3f;
+        light_torch.pointLightInnerRadius = (fuel * max_radius) / max_fuel;
         hitbox.enabled = state;
         light_torch.enabled = state;
         if (state) {
