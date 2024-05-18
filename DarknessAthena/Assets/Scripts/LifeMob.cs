@@ -5,12 +5,26 @@ using TMPro;
 
 public class LifeMob : MonoBehaviour
 {
+    [SerializeField]
     private float Life;
     private float Invisibility_time;
+    private float Ennemy_Type;
     
     void Start()
     {
-        Life = 15f;
+        Ennemy_Type = transform.gameObject.GetComponent<MoveMob>().Ennemy_Type;
+        if (Ennemy_Type == 0) {
+            Life = 10f;
+        }
+        if (Ennemy_Type == 1) {
+            Life = 15f;
+        }
+        if (Ennemy_Type == 2) {
+            Life = 30f;
+        }
+        if (Ennemy_Type == 3) {
+            Life = 3f;
+        }
         Invisibility_time = 0f;
     }
 
