@@ -21,6 +21,11 @@ public class topdownmovement : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 
+        if (moveInput.x != 0 || moveInput.y != 0)
+            transform.rotation = Quaternion.Euler(0, 0,
+                Mathf.PingPong(Time.time * 100, 10) - 5);
+        else
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         moveInput.Normalize();
 
         rb2d.velocity = moveInput * moveSpeed * Time.deltaTime;
