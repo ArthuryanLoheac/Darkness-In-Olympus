@@ -38,7 +38,7 @@ public class MoveMob : MonoBehaviour
     
         Torch = Player_pos.GetChild(0).gameObject;
         distance_from_torch = Vector2.Distance(Torch.GetComponent<Transform>().position,
-            new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z));
+            new Vector3(transform.position.x, transform.position.y, transform.position.z));
         radius_torch = Torch.GetComponent<CircleCollider2D>().radius;
         if (Torch.GetComponent<basic_torch>().state == true &&
             distance_from_torch + offset <= radius_torch) {
