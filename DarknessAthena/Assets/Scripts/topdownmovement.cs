@@ -12,7 +12,7 @@ public class topdownmovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        moveSpeed = 200f;
     }
 
     // Update is called once per frame
