@@ -11,6 +11,7 @@ public class MoveMob : MonoBehaviour
     private float Angle_to_Hero;
     private float speed_max;
     private float Detection_Range;
+    private float Auto_Attack_Range;
 
     private RaycastHit2D[] ray_list;
 
@@ -27,7 +28,8 @@ public class MoveMob : MonoBehaviour
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
         speed_max = 0.3f;
-        Detection_Range = 30f;
+        Detection_Range = 3f;
+        Auto_Attack_Range = 0.5f;
         is_moving = true;
         time_before_re_moving = 1f;
     }
@@ -49,8 +51,6 @@ public class MoveMob : MonoBehaviour
 
     private bool is_player_in_sight()
     {
-        distance_from_player = Vector2.Distance(Player_pos.position,
-            transform.position);
         if (distance_from_player > Detection_Range)
             return false;
         Angle_to_Hero = Mathf.Atan2(Player_pos.position.y - transform.position.y,
@@ -80,7 +80,10 @@ public class MoveMob : MonoBehaviour
             if (time_before_re_moving <= 0f)
                 is_moving = true;
         }
-        if (is_player_in_sight() && is_moving && !in_light(-0.1f)) {
+        distance_from_player = Vector2.Distance(Player_pos.position,
+            transform.position);
+        Debug.Log(distance_from_player);
+        if ((is_player_in_sight() && is_moving && !in_light(-0.1f)) || distance_from_player <= Auto_Attack_Range) {
             Run_into_Player(1f);
         } else if (in_light(-0.1f)) {            
             transform.rotation = Quaternion.Euler(0, 0, 0);
