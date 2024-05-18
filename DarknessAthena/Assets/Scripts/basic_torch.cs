@@ -35,5 +35,6 @@ public class basic_torch : MonoBehaviour
         light_torch.intensity = Mathf.Log(Mathf.PingPong(Time.time, 1) + 2f);
         light_torch.pointLightOuterRadius = (fuel * max_radius) / max_fuel;
         light_torch.pointLightInnerRadius = (fuel * max_radius) / max_fuel - 0.2f;
+        hitbox.gameObject.SetActive(state);
     }
 }

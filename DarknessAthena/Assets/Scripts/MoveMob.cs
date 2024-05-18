@@ -6,25 +6,45 @@ public class MoveMob : MonoBehaviour
 {
     private GameObject Player;
     private Transform Player_pos;
+
     private float distance_from_player;
-    private RaycastHit2D[] ray_list;
     private float Angle_to_Hero;
     private float speed_max;
     private float Detection_Range;
 
+    private RaycastHit2D[] ray_list;
+
     private bool is_moving;
     private float time_before_re_moving;
+    private float distance_from_torch;
+    private float radius_torch;
+
+    private GameObject Torch;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
         speed_max = 0.15f;
-        Detection_Range = 1.5f;
+        Detection_Range = 20f;
         is_moving = true;
         time_before_re_moving = 1f;
+    }
+
+    private bool in_light(float offset)
+    {
+        distance_from_torch = 0f;
+    
+        Torch = Player_pos.GetChild(0).gameObject;
+        distance_from_torch = Vector2.Distance(Torch.GetComponent<Transform>().position,
+            new Vector3(transform.position.x, transform.position.y, transform.position.z));
+        radius_torch = Torch.GetComponent<CircleCollider2D>().radius;
+        if (Torch.GetComponent<basic_torch>().state == true &&
+            distance_from_torch + offset <= radius_torch) {
+            return true;
+        } else
+            return false;
     }
 
     private bool is_player_in_sight()
@@ -38,29 +58,35 @@ public class MoveMob : MonoBehaviour
         ray_list = Physics2D.RaycastAll(transform.position,
             new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero)));
         foreach (RaycastHit2D ray in ray_list) {
-            if (ray.collider.tag != "Player" && ray.collider.tag != "Ennemy")
+            if (ray.collider.tag == "Wall")
                 return false;
         }
         return true;
     }
 
-    private void Run_into_Player()
+    private void Run_into_Player(float speed_boost)
     {
         Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
-        transform.Translate(direction * (speed_max * Time.deltaTime));
+        transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update_Moving()
     {
         if (!is_moving) {
             time_before_re_moving -= Time.deltaTime;
             if (time_before_re_moving <= 0f)
                 is_moving = true;
         }
-        if (is_player_in_sight() && is_moving) {
-            Run_into_Player();
+        if (is_player_in_sight() && is_moving && !in_light(-0.1f)) {
+            Run_into_Player(1f);
+        } else if (in_light(-0.1f)) {
+            Run_into_Player(-1f);
         }
+    }
+
+    void Update()
+    {
+        Update_Moving();
     }
 
     void OnCollisionStay2D(Collision2D collisionInfo)
