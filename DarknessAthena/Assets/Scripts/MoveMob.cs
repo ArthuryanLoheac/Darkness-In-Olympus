@@ -10,9 +10,11 @@ public class MoveMob : MonoBehaviour
     private RaycastHit2D[] ray_list;
     private float Angle_to_Hero;
     private float speed_max;
-    private float speed;
     private float Detection_Range;
-    private Vector2 offset;
+
+    private bool is_moving;
+    private float time_before_re_moving;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,8 @@ public class MoveMob : MonoBehaviour
         Player_pos = Player.GetComponent<Transform>();
         speed_max = 0.15f;
         Detection_Range = 1.5f;
+        is_moving = true;
+        time_before_re_moving = 1f;
     }
 
     private bool is_player_in_sight()
@@ -42,16 +46,28 @@ public class MoveMob : MonoBehaviour
 
     private void Run_into_Player()
     {
-        float step = speed_max * Time.deltaTime;
-    
-        transform.position = Vector2.MoveTowards(transform.position, Player_pos.position, step);
+        Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
+        transform.Translate(direction * (speed_max * Time.deltaTime));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (is_player_in_sight()) {
+        if (!is_moving) {
+            time_before_re_moving -= Time.deltaTime;
+            if (time_before_re_moving <= 0f)
+                is_moving = true;
+        }
+        if (is_player_in_sight() && is_moving) {
             Run_into_Player();
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collisionInfo)
+    {
+        if (collisionInfo.gameObject.tag == "Player") {
+            is_moving = false;
+            time_before_re_moving = 1f;
         }
     }
 }
