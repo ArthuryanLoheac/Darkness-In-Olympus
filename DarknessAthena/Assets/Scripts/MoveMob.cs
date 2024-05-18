@@ -26,7 +26,7 @@ public class MoveMob : MonoBehaviour
     {
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
-        speed_max = 0.15f;
+        speed_max = 0.3f;
         Detection_Range = 20f;
         is_moving = true;
         time_before_re_moving = 1f;
@@ -68,6 +68,9 @@ public class MoveMob : MonoBehaviour
     {
         Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
         transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
+
+        transform.rotation = Quaternion.Euler(0, 0,
+            Mathf.PingPong(Time.time * 100, 10) - 5);
     }
 
     private void Update_Moving()
@@ -79,7 +82,8 @@ public class MoveMob : MonoBehaviour
         }
         if (is_player_in_sight() && is_moving && !in_light(-0.1f)) {
             Run_into_Player(1f);
-        } else if (in_light(-0.1f)) {
+        } else if (in_light(-0.1f)) {            
+            transform.rotation = Quaternion.Euler(0, 0, 0);
             Run_into_Player(-1f);
         }
     }
