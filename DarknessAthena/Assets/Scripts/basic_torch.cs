@@ -14,16 +14,21 @@ public class basic_torch : MonoBehaviour
     private GameObject torch;
     public ParticleSystem particles;
     public Light2D light_torch;
+    private PauseCheck PauseManager;
 
     void Start()
     {
         torch = gameObject;
         hitbox = torch.GetComponent<CircleCollider2D>();
+        PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
     }
+    
     public void switch_torch_state()
     {
-        state = !state;
+        if (PauseManager.IsPlaying)
+            state = !state;
     }
+
     private void update_torch_radius(float time_spent)
     {
         if (state && fuel > 0.2)
@@ -32,18 +37,21 @@ public class basic_torch : MonoBehaviour
         var emission = particles.emission;
         emission.rateOverTime = (fuel * 1000) / max_fuel;
     }
+
     void Update()
     {
-        update_torch_radius(Time.deltaTime);
-        light_torch.intensity = Mathf.Log(Mathf.PingPong(Time.time, 1) + 2f);
-        light_torch.pointLightOuterRadius =  (fuel * max_radius) / max_fuel + 0.3f;
-        light_torch.pointLightInnerRadius = (fuel * max_radius) / max_fuel;
-        hitbox.enabled = state;
-        light_torch.enabled = state;
-        if (state) {
-            particles.Play();
-        } else {
-            particles.Stop();
+        if (PauseManager.IsPlaying) {
+            update_torch_radius(Time.deltaTime);
+            light_torch.intensity = Mathf.Log(Mathf.PingPong(Time.time, 1) + 2f);
+            light_torch.pointLightOuterRadius =  (fuel * max_radius) / max_fuel + 0.3f;
+            light_torch.pointLightInnerRadius = (fuel * max_radius) / max_fuel;
+            hitbox.enabled = state;
+            light_torch.enabled = state;
+            if (state) {
+                particles.Play();
+            } else {
+                particles.Stop();
+            }
         }
     }
 }

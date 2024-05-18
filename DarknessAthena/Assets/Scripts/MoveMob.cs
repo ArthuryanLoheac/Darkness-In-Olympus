@@ -25,10 +25,12 @@ public class MoveMob : MonoBehaviour
     private float radius_torch;
 
     private GameObject Torch;
+    private PauseCheck PauseManager;
 
 
     void Start()
     {
+        PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
         is_moving = true;
@@ -123,12 +125,13 @@ public class MoveMob : MonoBehaviour
 
     void Update()
     {
-        Update_Moving();
+        if (PauseManager.IsPlaying)
+            Update_Moving();
     }
 
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
-        if (collisionInfo.gameObject.tag == "Player") {
+        if (collisionInfo.gameObject.tag == "Player" && PauseManager.IsPlaying) {
             is_moving = false;
             time_before_re_moving = time_before_re_moving_value;
         }

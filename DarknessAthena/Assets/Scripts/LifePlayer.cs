@@ -8,8 +8,8 @@ public class LifePlayer : MonoBehaviour
 {
     private float Life;
     private float max_life;
-    [SerializeField]
     private float Invisibility_time;
+    private PauseCheck PauseManager;
 
     // Start is called before the first frame update
     void Start()
@@ -17,14 +17,18 @@ public class LifePlayer : MonoBehaviour
         max_life = 100f;
         Life = max_life;
         Invisibility_time = 0f;
+        PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
     }
+
     public float get_life_as_percent()
     {
         return  (Life * 100) / max_life;
     }
+
     void Update()
     {
-        Invisibility_time -= Time.deltaTime;
+        if (PauseManager.IsPlaying)
+            Invisibility_time -= Time.deltaTime;
     }
 
     private void Add_Damage_Indicator(float damage)
@@ -53,7 +57,7 @@ public class LifePlayer : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
-        if (collisionInfo.gameObject.tag == "Ennemy" && Invisibility_time <= 0f) {
+        if (collisionInfo.gameObject.tag == "Ennemy" && Invisibility_time <= 0f && PauseManager.IsPlaying) {
             Decrease_Life(5);
         }
     }

@@ -8,15 +8,16 @@ public class topdownmovement : MonoBehaviour
     private float moveSpeed;
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
+    private PauseCheck PauseManager;
 
     // Start is called before the first frame update
     void Start()
     {
         moveSpeed = 3f;
+        PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Update_move()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
@@ -30,5 +31,12 @@ public class topdownmovement : MonoBehaviour
 
         rb2d.MovePosition(transform.position + new Vector3(moveInput.x, moveInput.y, 0)
             * moveSpeed * Time.deltaTime);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (PauseManager.IsPlaying)
+            Update_move();
     }
 }

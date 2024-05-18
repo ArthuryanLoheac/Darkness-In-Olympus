@@ -5,10 +5,10 @@ using TMPro;
 
 public class LifeMob : MonoBehaviour
 {
-    [SerializeField]
     private float Life;
     private float Invisibility_time;
     private float Ennemy_Type;
+    private PauseCheck PauseManager;
     
     void Start()
     {
@@ -26,11 +26,12 @@ public class LifeMob : MonoBehaviour
             Life = 3f;
         }
         Invisibility_time = 0f;
+        PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
     }
 
     void Update()
     {
-        if (Invisibility_time > 0f) {
+        if (PauseManager.IsPlaying && Invisibility_time > 0f) {
             Invisibility_time -= Time.deltaTime;
         }
     }
@@ -59,7 +60,7 @@ public class LifeMob : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Torch") {
+        if (other.gameObject.tag == "Torch" && PauseManager.IsPlaying) {
             Decrease_Life(other.gameObject.GetComponent<basic_torch>().light_torch.pointLightInnerRadius /
             Vector2.Distance(other.transform.position, transform.position));
         }
