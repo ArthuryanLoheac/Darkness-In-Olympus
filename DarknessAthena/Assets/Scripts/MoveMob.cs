@@ -38,28 +38,28 @@ public class MoveMob : MonoBehaviour
             speed_max = 0.3f;
             Detection_Range = 3f;
             Attack_Range = 0.5f;
-            Damage = 2f;
+            Damage = 5f;
             time_before_re_moving_value = 1f;
         }
         if (Ennemy_Type == 1) { //Skeleton faucille
             speed_max = 0.3f;
             Detection_Range = 3f;
             Attack_Range = 0.5f;
-            Damage = 5f;
-            time_before_re_moving_value = 0.5f;
+            Damage = 15f;
+            time_before_re_moving_value = 1.5f;
         }
         if (Ennemy_Type == 2) { //Skull
             speed_max = 0.6f;
             Detection_Range = 3f;
             Attack_Range = 3f;
-            Damage = 2f;
-            time_before_re_moving_value = 1f;
+            Damage = 7f;
+            time_before_re_moving_value = 0.5f;
         }
         if (Ennemy_Type == 3) { //Vampire
             speed_max = 1.5f;
             Detection_Range = 6f;
             Attack_Range = 0f;
-            Damage = 3f;
+            Damage = 20f;
             time_before_re_moving_value = 2.5f;
         }
     }
@@ -136,11 +136,13 @@ public class MoveMob : MonoBehaviour
         }
         distance_from_player = Vector2.Distance(Player_pos.position,
             transform.position);
-        if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) ||
-                distance_from_player <= Attack_Range) {
-            Run_into_Player(1f, Player_pos);
-        } else if (in_light_run_out(-0.105f)) {            
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+        if (time_before_re_moving <= 0f) {
+            if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) ||
+                    distance_from_player <= Attack_Range) {
+                Run_into_Player(1f, Player_pos);
+            } else if (in_light_run_out(-0.105f) && is_moving) {            
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
     }
 

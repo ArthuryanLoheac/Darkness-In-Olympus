@@ -57,8 +57,14 @@ public class LifePlayer : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
-        if (collisionInfo.gameObject.tag == "Ennemy" && Invisibility_time <= 0f && PauseManager.IsPlaying) {
-            Decrease_Life(5);
+        if (collisionInfo.gameObject.tag == "Ennemy" &&
+            Invisibility_time <= 0f && PauseManager.IsPlaying) {
+            if (this.gameObject.GetComponent<AudioSource>().enabled) {
+                this.gameObject.GetComponent<AudioSource>().Stop();
+                if (Life > 0f)
+                    this.gameObject.GetComponent<AudioSource>().Play();
+            }
+            Decrease_Life(collisionInfo.gameObject.GetComponent<MoveMob>().Damage);
         }
     }
 }

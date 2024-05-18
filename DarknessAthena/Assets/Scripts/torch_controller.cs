@@ -10,6 +10,7 @@ public class torch_controller : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) {
             torch.GetComponent<basic_torch>().switch_torch_state();
+            torch.GetComponent<AudioSource>().mute = !torch.GetComponent<basic_torch>().state;
         }
     }
 }
