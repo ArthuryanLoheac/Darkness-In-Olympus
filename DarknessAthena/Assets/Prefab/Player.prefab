@@ -161,7 +161,7 @@ MonoBehaviour:
   - {x: 0.08000004, y: -0.07999998, z: 0}
   m_ShapePathHash: 1284396213
   m_Mesh: {fileID: 0}
-  m_InstanceId: -7196
+  m_InstanceId: 33280
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.08000004, y: 0.07999998, z: 0}
@@ -251,7 +251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2399739134664875784, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0188
+      value: -0.0197
       objectReference: {fileID: 0}
     - target: {fileID: 2399739134664875784, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: m_LocalPosition.y
@@ -259,7 +259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2399739134664875784, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.96
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2912744284958963213, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: m_IsTrigger
@@ -312,6 +312,10 @@ PrefabInstance:
     - target: {fileID: 4299101397715150685, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: ShapeModule.m_Scale.z
       value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4299101397715150685, guid: c8afe858293b9644f88f786d02db6161, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4299101397715150685, guid: c8afe858293b9644f88f786d02db6161, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
