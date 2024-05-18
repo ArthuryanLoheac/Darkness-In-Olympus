@@ -11,7 +11,7 @@ public class DamageIndicator : MonoBehaviour
     void Start()
     {
         Life_time = 1f;
-        Reducing_scale = 40f;
+        Reducing_scale = 80f;
     }
 
     // Update is called once per frame
