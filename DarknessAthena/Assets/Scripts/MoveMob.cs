@@ -11,10 +11,15 @@ public class MoveMob : MonoBehaviour
     private float Angle_to_Hero;
     private float speed_max;
     private float Detection_Range;
+    private float Attack_Range;
+
+    public float Damage;
+    public int Ennemy_Type;
 
     private RaycastHit2D[] ray_list;
 
     private bool is_moving;
+    private float time_before_re_moving_value;
     private float time_before_re_moving;
     private float distance_from_torch;
     private float radius_torch;
@@ -26,10 +31,36 @@ public class MoveMob : MonoBehaviour
     {
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
-        speed_max = 0.3f;
-        Detection_Range = 30f;
         is_moving = true;
-        time_before_re_moving = 1f;
+        time_before_re_moving = 0f;
+        if (Ennemy_Type == 0) { //Skeleton de base
+            speed_max = 0.3f;
+            Detection_Range = 3f;
+            Attack_Range = 0.5f;
+            Damage = 2f;
+            time_before_re_moving_value = 1f;
+        }
+        if (Ennemy_Type == 1) { //Skeleton faucille
+            speed_max = 0.3f;
+            Detection_Range = 3f;
+            Attack_Range = 0.5f;
+            Damage = 5f;
+            time_before_re_moving_value = 0.5f;
+        }
+        if (Ennemy_Type == 2) { //Skull
+            speed_max = 0.6f;
+            Detection_Range = 3f;
+            Attack_Range = 3f;
+            Damage = 2f;
+            time_before_re_moving_value = 1f;
+        }
+        if (Ennemy_Type == 3) { //Vampire
+            speed_max = 1.5f;
+            Detection_Range = 6f;
+            Attack_Range = 0f;
+            Damage = 3f;
+            time_before_re_moving_value = 2.5f;
+        }
     }
 
     private bool in_light(float offset)
@@ -38,7 +69,7 @@ public class MoveMob : MonoBehaviour
     
         Torch = Player_pos.GetChild(0).gameObject;
         distance_from_torch = Vector2.Distance(Torch.GetComponent<Transform>().position,
-            new Vector3(transform.position.x, transform.position.y - 0.02f, transform.position.z));
+            new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z));
         radius_torch = Torch.GetComponent<CircleCollider2D>().radius;
         if (Torch.GetComponent<basic_torch>().state == true &&
             distance_from_torch + offset <= radius_torch) {
@@ -49,8 +80,6 @@ public class MoveMob : MonoBehaviour
 
     private bool is_player_in_sight()
     {
-        distance_from_player = Vector2.Distance(Player_pos.position,
-            transform.position);
         if (distance_from_player > Detection_Range)
             return false;
         Angle_to_Hero = Mathf.Atan2(Player_pos.position.y - transform.position.y,
@@ -69,8 +98,9 @@ public class MoveMob : MonoBehaviour
         Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
         transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
 
-        transform.rotation = Quaternion.Euler(0, 0,
-            Mathf.PingPong(Time.time * 100, 10) - 5);
+        if (Ennemy_Type != 2)
+            transform.rotation = Quaternion.Euler(0, 0,
+                Mathf.PingPong(Time.time * 100, 10) - 5);
     }
 
     private void Update_Moving()
@@ -80,9 +110,12 @@ public class MoveMob : MonoBehaviour
             if (time_before_re_moving <= 0f)
                 is_moving = true;
         }
-        if (is_player_in_sight() && is_moving && !in_light(-0.1f)) {
+        distance_from_player = Vector2.Distance(Player_pos.position,
+            transform.position);
+        if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) ||
+                distance_from_player <= Attack_Range) {
             Run_into_Player(1f);
-        } else if (in_light(-0.1f)) {            
+        } else if (in_light(-0.105f)) {            
             transform.rotation = Quaternion.Euler(0, 0, 0);
             Run_into_Player(-1f);
         }
@@ -97,7 +130,7 @@ public class MoveMob : MonoBehaviour
     {
         if (collisionInfo.gameObject.tag == "Player") {
             is_moving = false;
-            time_before_re_moving = 1f;
+            time_before_re_moving = time_before_re_moving_value;
         }
     }
 }
