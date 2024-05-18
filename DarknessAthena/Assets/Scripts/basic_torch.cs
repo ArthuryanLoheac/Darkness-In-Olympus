@@ -10,6 +10,7 @@ public class basic_torch : MonoBehaviour
     public float consumption_rate; //consumption of fuel per second, set to zero to make it infinite
     public float max_radius;
     public bool state = false;
+    public int particles_sec_max;
     private CircleCollider2D hitbox;
     private GameObject torch;
     public ParticleSystem particles;
@@ -33,7 +34,7 @@ public class basic_torch : MonoBehaviour
             fuel -= time_spent * consumption_rate;
         hitbox.radius = (fuel * max_radius) / max_fuel;
         var emission = particles.emission;
-        emission.rateOverTime = (fuel * 1000) / max_fuel;
+        emission.rateOverTime = (fuel * particles_sec_max) / max_fuel;
     }
     void Update()
     {
