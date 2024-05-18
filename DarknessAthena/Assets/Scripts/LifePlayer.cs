@@ -6,7 +6,6 @@ using TMPro;
 public class LifePlayer : MonoBehaviour
 {
     private float Life;
-    [SerializeField]
     private float Invisibility_time;
 
     // Start is called before the first frame update
