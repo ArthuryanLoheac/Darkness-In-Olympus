@@ -44,9 +44,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 1889813855
+    locked: 0
   - name: Entities and walls
     uniqueID: 467462647
     locked: 0
-  - name: Ground
-    uniqueID: 1889813855
+  - name: Flammes
+    uniqueID: 4039628825
     locked: 0

@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 public class topdownmovement : MonoBehaviour
 {
-    public float moveSpeed;
+    private float moveSpeed;
     public Rigidbody2D rb2d;
     private Vector2 moveInput;
 
