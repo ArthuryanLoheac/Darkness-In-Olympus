@@ -34,6 +34,10 @@ public class Potion : MonoBehaviour
                     torch.fuel = torch.max_fuel;
                 Destroy(this.gameObject);
             }
+            if (this.gameObject.tag == "Key") {
+                GameObject.Find("Player").GetComponent<Key_script>().key_count += 1;
+                Destroy(this.gameObject);
+            }
         }
     }
 }
