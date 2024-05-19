@@ -15,17 +15,19 @@ public class LifeMob : MonoBehaviour
     {
         Time_animation_death = 0f;
         Ennemy_Type = transform.gameObject.GetComponent<MoveMob>().Ennemy_Type;
-        if (Ennemy_Type == 0) {
-            Life = 10f;
-        }
-        if (Ennemy_Type == 1) {
-            Life = 15f;
-        }
-        if (Ennemy_Type == 2) {
-            Life = 30f;
-        }
-        if (Ennemy_Type == 3) {
-            Life = 3f;
+        if (Life == 0) {
+            if (Ennemy_Type == 0) {
+                Life = 10f;
+            }
+            if (Ennemy_Type == 1) {
+                Life = 15f;
+            }
+            if (Ennemy_Type == 2) {
+                Life = 30f;
+            }
+            if (Ennemy_Type == 3) {
+                Life = 3f;
+            }
         }
         Invisibility_time = 0f;
         PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();

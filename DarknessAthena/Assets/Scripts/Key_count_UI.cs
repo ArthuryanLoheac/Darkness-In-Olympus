@@ -6,15 +6,17 @@ using TMPro;
 
 public class Key_count_UI : MonoBehaviour
 {
-    private TextMeshProUGUI text;
-    public GameObject player;
+    private TextMeshProUGUI txt;
+    private GameObject player;
+
     void Start()
     {
-        text = transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        player = GameObject.Find("Player");
+        txt = transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
     {
-        text.text = player.GetComponent<Key_script>().key_count.ToString();
+        txt.text = player.GetComponent<Key_script>().key_count.ToString();
     }
 }
