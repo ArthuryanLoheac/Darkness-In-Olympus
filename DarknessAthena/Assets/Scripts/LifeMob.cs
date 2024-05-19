@@ -49,8 +49,10 @@ public class LifeMob : MonoBehaviour
 
     IEnumerator WaitAndKill()
     {
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        yield return new WaitForSeconds(1);
+        for (int i = 0; i < 90; i++) {
+            transform.rotation = Quaternion.Euler(i, 0, 0);
+            yield return new WaitForSeconds(1/90);
+        }
         Destroy(this.gameObject);
     }
 

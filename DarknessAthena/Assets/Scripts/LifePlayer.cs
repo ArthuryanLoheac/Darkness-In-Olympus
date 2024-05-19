@@ -44,8 +44,11 @@ public class LifePlayer : MonoBehaviour
 
     IEnumerator WaitAndKill()
     {
+        for (int i = 0; i < 90; i++) {
+            transform.rotation = Quaternion.Euler(i, 0, 0);
+            yield return new WaitForSeconds(1/90);
+        }
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        yield return new WaitForSeconds(0.4f);
         SceneManager.LoadScene(2);
     }
 
@@ -69,7 +72,8 @@ public class LifePlayer : MonoBehaviour
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "Ennemy" &&
-            Invisibility_time <= 0f && PauseManager.IsPlaying && Life > 0f) {
+            Invisibility_time <= 0f && PauseManager.IsPlaying && Life > 0f
+            && collisionInfo.gameObject.GetComponent<LifeMob>().Life > 0f) {
             Decrease_Life(collisionInfo.gameObject.GetComponent<MoveMob>().Damage);
         }
     }
