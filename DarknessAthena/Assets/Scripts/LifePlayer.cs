@@ -49,8 +49,13 @@ public class LifePlayer : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    private void Decrease_Life(float intensity)
+    public void Decrease_Life(float intensity)
     {
+        if (this.gameObject.GetComponent<AudioSource>().enabled) {
+            this.gameObject.GetComponent<AudioSource>().Stop();
+            if (Life > 0f)
+                this.gameObject.GetComponent<AudioSource>().Play();
+        }
         if (Invisibility_time <= 0f) {
             Add_Damage_Indicator(intensity);
             Life -= intensity;
@@ -65,11 +70,6 @@ public class LifePlayer : MonoBehaviour
     {
         if (collisionInfo.gameObject.tag == "Ennemy" &&
             Invisibility_time <= 0f && PauseManager.IsPlaying && Life > 0f) {
-            if (this.gameObject.GetComponent<AudioSource>().enabled) {
-                this.gameObject.GetComponent<AudioSource>().Stop();
-                if (Life > 0f)
-                    this.gameObject.GetComponent<AudioSource>().Play();
-            }
             Decrease_Life(collisionInfo.gameObject.GetComponent<MoveMob>().Damage);
         }
     }
