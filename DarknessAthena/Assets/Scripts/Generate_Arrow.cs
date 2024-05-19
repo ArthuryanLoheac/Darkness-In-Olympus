@@ -25,7 +25,9 @@ public class Generate_Arrow : MonoBehaviour
     {
         Time_arrow -= Time.deltaTime;
         if (Time_arrow <= 0f) {
-            Generated_Arrow = Instantiate(Arrow, transform);
+            Generated_Arrow = Instantiate(Arrow,
+                new Vector3 (transform.position.x + (direction.x / 20), transform.position.y + (direction.y / 20), transform.position.z),
+                Quaternion.identity, transform);
             Generated_Arrow.GetComponent<Arrow>().set_direction(direction.x, direction.y);
             Time_arrow = Time_between_arrow;
         }
