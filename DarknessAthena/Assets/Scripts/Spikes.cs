@@ -16,7 +16,7 @@ public class Spikes : MonoBehaviour
         life = GameObject.Find("Player").GetComponent<LifePlayer>();
         SpikeOut = gameObject.GetComponent<AudioSource>();
         if (WaitTime_value == 0f)
-            WaitTime_value = 5f;
+            WaitTime_value = 3f;
         WaitTime = WaitTime_value;
         Active = false;
     }
