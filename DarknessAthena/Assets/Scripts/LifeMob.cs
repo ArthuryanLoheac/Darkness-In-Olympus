@@ -5,7 +5,7 @@ using TMPro;
 
 public class LifeMob : MonoBehaviour
 {
-    private float Life;
+    public float Life;
     private float Invisibility_time;
     private float Ennemy_Type;
     private PauseCheck PauseManager;
@@ -47,6 +47,13 @@ public class LifeMob : MonoBehaviour
         Instance.SetActive(true);
     }
 
+    IEnumerator WaitAndKill()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
+    }
+
     private void Decrease_Life(float intensity)
     {
         if (Invisibility_time <= 0f) {
@@ -54,13 +61,14 @@ public class LifeMob : MonoBehaviour
             Life -= intensity;
             Invisibility_time = 0.4f;
         }
-        if (Life <= 0f)
-            Destroy(this.gameObject);
+        if (Life <= 0f) {
+            StartCoroutine(WaitAndKill());
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Torch" && PauseManager.IsPlaying) {
+        if (other.gameObject.tag == "Torch" && PauseManager.IsPlaying && Life > 0) {
             Decrease_Life(other.gameObject.GetComponent<basic_torch>().light_torch.pointLightInnerRadius /
             Vector2.Distance(other.transform.position, transform.position));
         }

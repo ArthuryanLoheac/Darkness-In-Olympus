@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LifePlayer : MonoBehaviour
 {
-    private float Life;
+    public float Life;
     private float max_life;
     private float Invisibility_time;
     private PauseCheck PauseManager;
@@ -27,7 +27,7 @@ public class LifePlayer : MonoBehaviour
 
     void Update()
     {
-        if (PauseManager.IsPlaying)
+        if (PauseManager.IsPlaying && Life > 0f)
             Invisibility_time -= Time.deltaTime;
     }
 
@@ -42,6 +42,13 @@ public class LifePlayer : MonoBehaviour
         Instance.SetActive(true);
     }
 
+    IEnumerator WaitAndKill()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(0.4f);
+        SceneManager.LoadScene(2);
+    }
+
     private void Decrease_Life(float intensity)
     {
         if (Invisibility_time <= 0f) {
@@ -50,15 +57,14 @@ public class LifePlayer : MonoBehaviour
             Invisibility_time = 0.4f;
         }
         if (Life <= 0f) {
-            this.gameObject.SetActive(false);
-            SceneManager.LoadScene(2);
+            StartCoroutine(WaitAndKill());
         }
     }
 
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "Ennemy" &&
-            Invisibility_time <= 0f && PauseManager.IsPlaying) {
+            Invisibility_time <= 0f && PauseManager.IsPlaying && Life > 0f) {
             if (this.gameObject.GetComponent<AudioSource>().enabled) {
                 this.gameObject.GetComponent<AudioSource>().Stop();
                 if (Life > 0f)

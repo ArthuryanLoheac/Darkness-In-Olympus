@@ -23,6 +23,7 @@ public class MoveMob : MonoBehaviour
     private float time_before_re_moving;
     private float distance_from_torch;
     private float radius_torch;
+    private LifeMob life;
 
     private PauseCheck PauseManager;
 
@@ -32,6 +33,7 @@ public class MoveMob : MonoBehaviour
         PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
         Player = GameObject.FindGameObjectsWithTag("Player")[0];
         Player_pos = Player.GetComponent<Transform>();
+        life = this.gameObject.GetComponent<LifeMob>();
         is_moving = true;
         time_before_re_moving = 0f;
         if (Ennemy_Type == 0) { //Skeleton de base
@@ -148,7 +150,7 @@ public class MoveMob : MonoBehaviour
 
     void Update()
     {
-        if (PauseManager.IsPlaying)
+        if (PauseManager.IsPlaying && life.Life > 0)
             Update_Moving();
     }
 
