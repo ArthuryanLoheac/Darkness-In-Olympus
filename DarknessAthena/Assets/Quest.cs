@@ -29,12 +29,12 @@ public class Quest : MonoBehaviour
             if (trch.GetComponent<basic_torch>().state == true && trch.name != "basic_torch")
                 number_allumed += 1;
         }
-        if (number_allumed == 1 && !key_deblock) {
+        if (number_allumed == 4 && !key_deblock) {
             Instantiate(chest, position.GetComponent<Transform>().position, Quaternion.identity, position.transform);
             key_deblock = true;
         }
-        if (number_allumed < 1) {
-            txt.text = "Torch lighting to unlock the key : " + number_allumed.ToString() + " / 4";
+        if (number_allumed < 4) {
+            txt.text = "Torch lit to unlock the key : " + number_allumed.ToString() + " / 4";
         } else if (!key_getten) {
             txt.text = "Search for the key";
             if (GameObject.Find("Player").GetComponent<Key_script>().key_count > 0)
