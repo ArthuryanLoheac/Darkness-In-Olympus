@@ -14,7 +14,7 @@ public class topdownmovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 2f;
+        moveSpeed = 0.8f;
         PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
         life = this.gameObject.GetComponent<LifePlayer>();
     }
@@ -32,11 +32,11 @@ public class topdownmovement : MonoBehaviour
         moveInput.Normalize();
 
         rb2d.MovePosition(transform.position + new Vector3(moveInput.x, moveInput.y, 0)
-            * moveSpeed * Time.deltaTime * (Screen.width / 1000));
+            * moveSpeed * Time.deltaTime);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (PauseManager.IsPlaying && life.Life > 0f)
             Update_move();
