@@ -10,7 +10,7 @@ public class MoveMob : MonoBehaviour
     private float distance_from_player;
     private float Angle_to_Hero;
     private float speed_max;
-    private float Detection_Range;
+    public float Detection_Range;
     private float Attack_Range;
 
     public float Damage;
@@ -26,7 +26,6 @@ public class MoveMob : MonoBehaviour
     private LifeMob life;
 
     private PauseCheck PauseManager;
-
 
     void Start()
     {
@@ -72,7 +71,7 @@ public class MoveMob : MonoBehaviour
             obj_transform.position.x - transform.position.x);
 
         Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
-        transform.Translate(direction * (speed_max * speed_boost * Time.deltaTime));
+        transform.position = Vector2.MoveTowards(transform.position, obj_transform.position, speed_max * Time.deltaTime * speed_boost);
 
         if (Ennemy_Type != 2)
             transform.rotation = Quaternion.Euler(0, 0,
@@ -96,6 +95,25 @@ public class MoveMob : MonoBehaviour
         return false;
     }
 
+    private bool is_torch_in_sight(Transform Player)
+    {
+        float distance_from_torch = Vector2.Distance(Player.position,
+            transform.position);
+        if (distance_from_torch > transform.gameObject.GetComponent<MoveMob>().Detection_Range)
+            return false;
+        float Angle_to_cible = Mathf.Atan2(Player.position.y - transform.position.y,
+            Player.position.x - transform.position.x);
+        RaycastHit2D[] ray_list_torch = Physics2D.RaycastAll(transform.position,
+            new Vector2(Mathf.Cos(Angle_to_cible), Mathf.Sin(Angle_to_cible)));
+        foreach (RaycastHit2D ray in ray_list_torch) {
+            if (ray.collider.tag == "Wall" && ray.distance < distance_from_torch)
+                return false;
+            if (ray.collider.tag == "Player")
+                return true;
+        }
+        return true;
+    }
+
     private bool in_light_run_out(float offset)
     {
         distance_from_torch = 0f;
@@ -106,7 +124,7 @@ public class MoveMob : MonoBehaviour
                 new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z));
             radius_torch = one_torch.GetComponent<CircleCollider2D>().radius;
             if (one_torch.GetComponent<basic_torch>().state == true &&
-                distance_from_torch + offset <= radius_torch) {
+                distance_from_torch + offset <= radius_torch && is_torch_in_sight(one_torch.GetComponent<Transform>())) {
                 Run_into_Player(-1f, one_torch.GetComponent<Transform>());
                 return true;
             }
@@ -123,8 +141,10 @@ public class MoveMob : MonoBehaviour
         ray_list = Physics2D.RaycastAll(transform.position,
             new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero)));
         foreach (RaycastHit2D ray in ray_list) {
-            if (ray.collider.tag == "Wall")
+            if (ray.collider.tag == "Wall" && ray.distance < distance_from_player)
                 return false;
+            if (ray.collider.tag == "Player")
+                return true;
         }
         return true;
     }
@@ -139,10 +159,10 @@ public class MoveMob : MonoBehaviour
         distance_from_player = Vector2.Distance(Player_pos.position,
             transform.position);
         if (time_before_re_moving <= 0f) {
-            if ((is_player_in_sight() && is_moving && !in_light(-0.105f)) ||
-                    distance_from_player <= Attack_Range) {
+            if ((is_player_in_sight() && is_moving && !in_light(-0.105f))
+                || (distance_from_player <= Attack_Range && is_moving && is_player_in_sight())) {
                 Run_into_Player(1f, Player_pos);
-            } else if (in_light_run_out(-0.105f) && is_moving) {            
+            } else if (in_light_run_out(-0.105f) && is_moving) {         
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }

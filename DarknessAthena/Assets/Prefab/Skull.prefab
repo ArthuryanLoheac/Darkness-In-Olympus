@@ -193,7 +193,7 @@ MonoBehaviour:
   - {x: -0.037973642, y: -0.029361904, z: 0}
   m_ShapePathHash: 473595437
   m_Mesh: {fileID: 0}
-  m_InstanceId: -43052
+  m_InstanceId: -303518
   m_LocalBounds:
     m_Center: {x: -0.00416407, y: 0.0048528016, z: 0}
     m_Extent: {x: 0.055401474, y: 0.06611794, z: 0}
@@ -223,7 +223,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &2279653889940231741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c1ffaeb3dfc38428c0b83218051b99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Life: 0
 --- !u!95 &8295227113947177845
 Animator:
   serializedVersion: 5
