@@ -54,7 +54,7 @@ public class LifeMob : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void Decrease_Life(float intensity)
+    public void Decrease_Life(float intensity)
     {
         if (Invisibility_time <= 0f) {
             Add_Damage_Indicator(intensity);
