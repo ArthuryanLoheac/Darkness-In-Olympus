@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class LifePlayer : MonoBehaviour
 {
     public float Life;
-    private float max_life;
+    public float max_life;
     private float Invisibility_time;
     private PauseCheck PauseManager;
 

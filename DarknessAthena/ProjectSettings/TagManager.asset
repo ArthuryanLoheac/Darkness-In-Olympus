@@ -9,6 +9,9 @@ TagManager:
   - Wall
   - Particules
   - PauseMenu
+  - BigHealthPotion
+  - LittleHealPotion
+  - FuelPotion
   layers:
   - Default
   - TransparentFX
