@@ -4927,6 +4927,8 @@ GameObject:
   - component: {fileID: 2496736932222855167}
   - component: {fileID: 2477714437837257175}
   - component: {fileID: 7838063317770513412}
+  - component: {fileID: 8094703812793520035}
+  - component: {fileID: 3703859791838493806}
   m_Layer: 0
   m_Name: Brasero_low
   m_TagString: Torch
@@ -5064,7 +5066,7 @@ MonoBehaviour:
   - {x: 0.07999992, y: -0.07999998, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -108812
+  m_InstanceId: -146758
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.07999992, y: 0.07999998, z: 0}
@@ -5143,5 +5145,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8faca22925a27cf4e8bdee59933c60b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8094703812793520035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695727897905928431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5e40d54540b69488f1b9104a1b7754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3703859791838493806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695727897905928431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5e40d54540b69488f1b9104a1b7754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
