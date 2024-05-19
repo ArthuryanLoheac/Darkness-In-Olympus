@@ -8,9 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1356797292062178147, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
+      propertyPath: m_Size.y
+      value: 0.059961364
+      objectReference: {fileID: 0}
+    - target: {fileID: 1356797292062178147, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.010032915
+      objectReference: {fileID: 0}
     - target: {fileID: 4090207563632667312, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
       propertyPath: m_Name
       value: Corner_RU Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587561622245605720, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
+      propertyPath: m_Size.y
+      value: 0.099947765
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587561622245605720, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.030026115
       objectReference: {fileID: 0}
     - target: {fileID: 5531049451979270761, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
       propertyPath: m_Sprite
@@ -18,11 +34,11 @@ PrefabInstance:
       objectReference: {fileID: 1464195901, guid: eaeb87789fa90e14682d2d8f1c5a1cfd, type: 3}
     - target: {fileID: 8392168869037591676, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.553
+      value: 5.654452
       objectReference: {fileID: 0}
     - target: {fileID: 8392168869037591676, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.56
+      value: -1.8182373
       objectReference: {fileID: 0}
     - target: {fileID: 8392168869037591676, guid: 4cdf7447965c77d41806f50d9f68aa30, type: 3}
       propertyPath: m_LocalPosition.z
