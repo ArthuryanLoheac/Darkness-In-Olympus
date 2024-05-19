@@ -9,4 +9,9 @@ public class SwitchToGameScene : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void SwitchToAnimation()
+    {
+        SceneManager.LoadScene(3);
+    }
 }

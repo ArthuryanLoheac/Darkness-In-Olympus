@@ -862,7 +862,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1429226170}
         m_TargetAssemblyTypeName: SwitchToGameScene, Assembly-CSharp
-        m_MethodName: SwitchToGame
+        m_MethodName: SwitchToAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
