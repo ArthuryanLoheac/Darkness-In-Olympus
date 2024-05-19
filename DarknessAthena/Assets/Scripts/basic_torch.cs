@@ -25,8 +25,11 @@ public class basic_torch : MonoBehaviour
     }
     public void switch_torch_state()
     {
-        if (PauseManager.IsPlaying)
+        if (PauseManager.IsPlaying) {
             state = !state;
+            if (state)
+                fuel = fuel * 0.95f;
+        }
     }
     private void update_torch_radius(float time_spent)
     {
@@ -34,7 +37,7 @@ public class basic_torch : MonoBehaviour
             fuel -= time_spent * consumption_rate;
         hitbox.radius = (fuel * max_radius) / max_fuel;
         var emission = particles.emission;
-        emission.rateOverTime = (fuel * particles_sec_max) / max_fuel;
+        emission.rateOverTime = (fuel * particles_sec_max) / max_fuel + 1;
     }
     void Update()
     {
