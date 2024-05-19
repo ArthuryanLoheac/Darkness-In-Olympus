@@ -15,8 +15,12 @@ public class give_fire : MonoBehaviour
     {
         if (other.tag == "Player") {
             var torch = other.gameObject.transform.GetChild(0).GetComponent<basic_torch>();
+            if (brasero.state == true && PlayerPrefs.GetInt("tuto_right") == 0) {
+                PlayerPrefs.SetInt("tuto_right", 1);
+            }
             if (brasero.state == true && Input.GetMouseButton(1)
                 && torch.max_fuel - 5 > torch.fuel && brasero.fuel > 5) {
+                PlayerPrefs.SetInt("tuto_right", 2);
                 torch.fuel += 1;
                 brasero.fuel -= 1;
             }

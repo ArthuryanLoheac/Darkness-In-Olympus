@@ -4923,7 +4923,6 @@ GameObject:
   - component: {fileID: 3383499073093189704}
   - component: {fileID: 3280618954982162018}
   - component: {fileID: 6139119538046895455}
-  - component: {fileID: 1669771023767058319}
   - component: {fileID: 8563109542208761274}
   - component: {fileID: 6538933828918259722}
   - component: {fileID: 3064342217715870904}
@@ -5039,36 +5038,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4738978
---- !u!114 &1669771023767058319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6656747341659781188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000c96dab8d5f45a470f7e9dc1b19d8c7f0519b2a94
-  m_ShapePath:
-  - {x: -0.07999992, y: -0.07999998, z: 0}
-  - {x: -0.07999992, y: 0.07999998, z: 0}
-  - {x: 0.07999992, y: 0.07999998, z: 0}
-  - {x: 0.07999992, y: -0.07999998, z: 0}
-  m_ShapePathHash: 0
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -129250
-  m_LocalBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.07999992, y: 0.07999998, z: 0}
 --- !u!114 &8563109542208761274
 MonoBehaviour:
   m_ObjectHideFlags: 0
