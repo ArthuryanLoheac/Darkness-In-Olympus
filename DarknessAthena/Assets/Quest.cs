@@ -36,7 +36,7 @@ public class Quest : MonoBehaviour
         if (number_allumed < 4) {
             txt.text = "Torches lit to unlock the key : " + number_allumed.ToString() + " / 4";
         } else if (!key_getten) {
-            txt.text = "Search the key";
+            txt.text = "Find the key";
             if (GameObject.Find("Player").GetComponent<Key_script>().key_count > 0)
                 key_getten = true;
         } else {
