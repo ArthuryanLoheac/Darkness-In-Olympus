@@ -11,6 +11,8 @@ public class LifePlayer : MonoBehaviour
     private float Invisibility_time;
     private PauseCheck PauseManager;
 
+    private float Time_animation_death;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class LifePlayer : MonoBehaviour
         Life = max_life;
         Invisibility_time = 0f;
         PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
+        Time_animation_death = 0f;
     }
 
     public float get_life_as_percent()
@@ -29,6 +32,14 @@ public class LifePlayer : MonoBehaviour
     {
         if (PauseManager.IsPlaying && Life > 0f)
             Invisibility_time -= Time.deltaTime;
+        if (Life <= 0f) {
+            Time_animation_death += Time.deltaTime;
+            transform.rotation = Quaternion.Euler((Time_animation_death / 0.3f) * 90, 0, 0);
+            if (Time_animation_death >= 0.3f) {
+                this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                SceneManager.LoadScene(2);
+            }
+        }
     }
 
     private void Add_Damage_Indicator(float damage)
@@ -42,16 +53,6 @@ public class LifePlayer : MonoBehaviour
         Instance.SetActive(true);
     }
 
-    IEnumerator WaitAndKill()
-    {
-        for (int i = 0; i < 90; i++) {
-            transform.rotation = Quaternion.Euler(i, 0, 0);
-            yield return new WaitForSeconds(1/90);
-        }
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        SceneManager.LoadScene(2);
-    }
-
     public void Decrease_Life(float intensity)
     {
         if (this.gameObject.GetComponent<AudioSource>().enabled) {
@@ -63,9 +64,6 @@ public class LifePlayer : MonoBehaviour
             Add_Damage_Indicator(intensity);
             Life -= intensity;
             Invisibility_time = 0.4f;
-        }
-        if (Life <= 0f) {
-            StartCoroutine(WaitAndKill());
         }
     }
 

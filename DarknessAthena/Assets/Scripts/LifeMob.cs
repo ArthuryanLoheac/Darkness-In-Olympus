@@ -9,9 +9,11 @@ public class LifeMob : MonoBehaviour
     private float Invisibility_time;
     private float Ennemy_Type;
     private PauseCheck PauseManager;
+    private float Time_animation_death;
     
     void Start()
     {
+        Time_animation_death = 0f;
         Ennemy_Type = transform.gameObject.GetComponent<MoveMob>().Ennemy_Type;
         if (Ennemy_Type == 0) {
             Life = 10f;
@@ -34,6 +36,13 @@ public class LifeMob : MonoBehaviour
         if (PauseManager.IsPlaying && Invisibility_time > 0f) {
             Invisibility_time -= Time.deltaTime;
         }
+        if (Life <= 0f) {  
+            Time_animation_death += Time.deltaTime;
+            transform.rotation = Quaternion.Euler((Time_animation_death / 0.3f) * 90, 0, 0);
+                if (Time_animation_death >= 0.3f) {
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     private void Add_Damage_Indicator(float intensity)
@@ -47,24 +56,12 @@ public class LifeMob : MonoBehaviour
         Instance.SetActive(true);
     }
 
-    IEnumerator WaitAndKill()
-    {
-        for (int i = 0; i < 90; i++) {
-            transform.rotation = Quaternion.Euler(i, 0, 0);
-            yield return new WaitForSeconds(1/90);
-        }
-        Destroy(this.gameObject);
-    }
-
     public void Decrease_Life(float intensity)
     {
         if (Invisibility_time <= 0f) {
             Add_Damage_Indicator(intensity);
             Life -= intensity;
             Invisibility_time = 0.4f;
-        }
-        if (Life <= 0f) {
-            StartCoroutine(WaitAndKill());
         }
     }
 
