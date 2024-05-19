@@ -40,7 +40,8 @@ public class Spikes : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && life.Life > 0f && Active && !Player_Hurted) {
+        if (other.gameObject.tag == "Player" &&
+            life.Life > 0f && Active && !Player_Hurted) {
             Player_Hurted = true;
             life.Decrease_Life(10);
         }
