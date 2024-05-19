@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3350565795342778891}
   - component: {fileID: 6351259037520824293}
   - component: {fileID: 7280220425131402263}
+  - component: {fileID: 2916750443293153829}
   m_Layer: 0
   m_Name: Wall_up
   m_TagString: Wall
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 467462647
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 591740439, guid: eaeb87789fa90e14682d2d8f1c5a1cfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -158,3 +159,35 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2916750443293153829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332556151109809933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000c96dab8d5f45a470f7e9dc1b19d8c7f0519b2a94
+  m_ShapePath:
+  - {x: -0.08077812, y: 0.070778206, z: 0}
+  - {x: -0.08632755, y: 0.08632763, z: 0}
+  - {x: 0.08632755, y: 0.084601894, z: 0}
+  - {x: 0.083902836, y: 0.07400401, z: 0}
+  - {x: -0.07881284, y: 0.07344891, z: 0}
+  - {x: -0.081587076, y: 0.07159917, z: 0}
+  m_ShapePathHash: 1524689021
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -726752
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0.07855292, z: 0}
+    m_Extent: {x: 0.08632755, y: 0.0077747107, z: 0}
