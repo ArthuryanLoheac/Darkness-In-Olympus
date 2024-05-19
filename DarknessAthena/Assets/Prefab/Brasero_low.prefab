@@ -123,7 +123,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3132261305826978025}
   serializedVersion: 8
-  lengthInSec: 10
+  lengthInSec: 0.05
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -251,7 +251,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4926,6 +4926,7 @@ GameObject:
   - component: {fileID: 8535230973106096328}
   - component: {fileID: 2496736932222855167}
   - component: {fileID: 2477714437837257175}
+  - component: {fileID: 7838063317770513412}
   m_Layer: 0
   m_Name: Brasero_low
   m_TagString: Torch
@@ -5063,7 +5064,7 @@ MonoBehaviour:
   - {x: 0.07999992, y: -0.07999998, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -81754
+  m_InstanceId: -108812
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.07999992, y: 0.07999998, z: 0}
@@ -5084,6 +5085,7 @@ MonoBehaviour:
   consumption_rate: 0.3
   max_radius: 0.5
   state: 1
+  particles_sec_max: 100
   particles: {fileID: 8584838953665315942}
   light_torch: {fileID: 5825703772797021489}
 --- !u!61 &2477714437837257175
@@ -5131,3 +5133,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.070287585, y: 0.031314254}
   m_EdgeRadius: 0
+--- !u!114 &7838063317770513412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695727897905928431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8faca22925a27cf4e8bdee59933c60b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
