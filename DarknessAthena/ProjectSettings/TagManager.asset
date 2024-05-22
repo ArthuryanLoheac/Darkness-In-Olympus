@@ -12,6 +12,8 @@ TagManager:
   - BigHealthPotion
   - LittleHealPotion
   - FuelPotion
+  - Key
+  - GameMusic
   layers:
   - Default
   - TransparentFX

@@ -136,7 +136,7 @@ PlayerSettings:
   vulkanEnableLateAcquireNextImage: 0
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 1.0
+  bundleVersion: 0.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -157,7 +157,8 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.LeFeu-ABrule.Darkness-In-Olympus
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -282,7 +283,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: d620c14ae30f7204d8c3d430a90e50d3, type: 3}
+      m_Icon: {fileID: 2800000, guid: 00f3f6cf770995d44b937df31d82f139, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

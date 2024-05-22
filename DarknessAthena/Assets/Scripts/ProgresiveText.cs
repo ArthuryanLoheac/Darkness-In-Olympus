@@ -45,6 +45,8 @@ public class ProgresiveText : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(KeyCode.Escape))
+            StartCoroutine(Load_Game());
         if (ended && Input.GetKey(KeyCode.Space)) {
             if (state == 0)
                 SceneManager.LoadScene(4);

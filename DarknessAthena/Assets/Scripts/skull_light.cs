@@ -7,12 +7,13 @@ public class skull_light : MonoBehaviour
 {
     private Light2D light;
     private ParticleSystem particles;
-    public GameObject player;
+    private GameObject player;
     void Start()
     {
         light = gameObject.transform.GetComponent<Transform>().GetChild(0).GetComponent<Light2D>();
         light.intensity = 0;
         particles = gameObject.transform.GetComponent<Transform>().GetChild(1).GetComponent<ParticleSystem>();
+        player = GameObject.Find("Player");
     }
 
     private bool is_torch_in_sight(Transform Player)
