@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2694740621612831235}
   - component: {fileID: 7506600756883930129}
   m_Layer: 0
-  m_Name: BigHealPotion
-  m_TagString: BigHealthPotion
+  m_Name: LittleHealPotion
+  m_TagString: LittleHealPotion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.060515795
+  m_Radius: 0.4
 --- !u!114 &7506600756883930129
 MonoBehaviour:
   m_ObjectHideFlags: 0

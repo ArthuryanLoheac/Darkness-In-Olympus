@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenChest : MonoBehaviour
+public class OpenDoor : MonoBehaviour
 {
     public Key_script keys;
     public Transform doors;

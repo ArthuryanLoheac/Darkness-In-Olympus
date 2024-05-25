@@ -5,13 +5,13 @@ using UnityEngine.Rendering.Universal;
 
 public class skull_light : MonoBehaviour
 {
-    private Light2D light;
+    private Light2D lightAura;
     private ParticleSystem particles;
     private GameObject player;
     void Start()
     {
-        light = gameObject.transform.GetComponent<Transform>().GetChild(0).GetComponent<Light2D>();
-        light.intensity = 0;
+        lightAura = gameObject.transform.GetComponent<Transform>().GetChild(0).GetComponent<Light2D>();
+        lightAura.intensity = 0;
         particles = gameObject.transform.GetComponent<Transform>().GetChild(1).GetComponent<ParticleSystem>();
         player = GameObject.Find("Player");
     }
@@ -38,10 +38,10 @@ public class skull_light : MonoBehaviour
     {
         var emission = particles.emission;
         if (is_torch_in_sight(player.transform)) {
-            light.intensity = 10f;
+            lightAura.intensity = 10f;
             emission.rateOverTime = 100f;
         } else {
-            light.intensity = 0f;
+            lightAura.intensity = 0f;
             emission.rateOverTime = 0f;
         }
     }

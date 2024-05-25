@@ -23,7 +23,7 @@ public class LifeMob : MonoBehaviour
                 Life = 15f;
             }
             if (Ennemy_Type == 2) {
-                Life = 30f;
+                Life = 15f;
             }
             if (Ennemy_Type == 3) {
                 Life = 3f;
