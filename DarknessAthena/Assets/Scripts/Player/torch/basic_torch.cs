@@ -5,12 +5,14 @@ using UnityEngine.Rendering.Universal;
 
 public class basic_torch : MonoBehaviour
 {
-    public float max_fuel;
-    public float fuel;
-    public float consumption_rate; //consumption of fuel per second, set to zero to make it infinite
-    public float max_radius;
+    public float max_fuel = 100;
+    public float fuel = 100;
+    public float consumption_rate = 1.5f;
+    public float max_radius = 1;
+    public float multiplicator_damage = 1f;
+    public float max_damage = 5f;
     public bool state = false;
-    public int particles_sec_max;
+    public int particles_sec_max = 1000;
     private CircleCollider2D hitbox;
     private GameObject torch;
     public ParticleSystem particles;

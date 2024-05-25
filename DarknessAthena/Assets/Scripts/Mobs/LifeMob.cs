@@ -86,11 +86,22 @@ public class LifeMob : MonoBehaviour
         return true;
     }
 
+    private void Take_DamageTorch(basic_torch torch, Collider2D other)
+    {
+        float damage = other.gameObject.GetComponent<basic_torch>().light_torch.pointLightInnerRadius /
+            Vector2.Distance(other.transform.position, transform.position);
+        damage = damage * torch.multiplicator_damage;
+        if (damage > torch.max_damage)
+            damage = torch.max_damage;
+        Decrease_Life(damage);
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Torch" && PauseManager.IsPlaying && Life > 0 && is_torch_in_sight(other.gameObject.GetComponent<Transform>())) {
-            Decrease_Life(other.gameObject.GetComponent<basic_torch>().light_torch.pointLightInnerRadius /
-            Vector2.Distance(other.transform.position, transform.position));
+        if (other.gameObject.tag == "Torch"
+            && PauseManager.IsPlaying && Life > 0
+            && is_torch_in_sight(other.gameObject.GetComponent<Transform>())) {
+            Take_DamageTorch(other.gameObject.GetComponent<basic_torch>(), other);
         }
     }
 }
