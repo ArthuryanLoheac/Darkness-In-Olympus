@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ennemy
+  - Torch
+  - Wall
+  - Particules
+  - PauseMenu
+  - BigHealthPotion
+  - LittleHealPotion
+  - FuelPotion
+  - Key
+  - GameMusic
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Underground
+    uniqueID: 2376822217
+    locked: 0
+  - name: Ground
+    uniqueID: 1889813855
+    locked: 0
+  - name: Entities and walls
+    uniqueID: 467462647
+    locked: 0
+  - name: Flammes
+    uniqueID: 4039628825
+    locked: 0
+  - name: UI
+    uniqueID: 2485820241
+    locked: 0
