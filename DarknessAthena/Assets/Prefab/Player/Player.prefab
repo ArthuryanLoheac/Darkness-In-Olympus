@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3504677375958130218}
   - component: {fileID: 2124941900546863331}
   - component: {fileID: 5086577981013742863}
+  - component: {fileID: 7200041611509112349}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -164,7 +165,7 @@ MonoBehaviour:
   - {x: 0.08000004, y: -0.07999998, z: 0}
   m_ShapePathHash: 1284396213
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1306
+  m_InstanceId: -1934
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.08000004, y: 0.07999998, z: 0}
@@ -180,7 +181,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -193,7 +194,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &112816513991077161
 MonoBehaviour:
@@ -344,6 +345,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key_count: 0
+--- !u!114 &7200041611509112349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2546669329022679962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ddebfc99fb7f9479c35e125d43f03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txt: {fileID: 0}
+  chest: {fileID: 6041464943434042289, guid: a5602f5f986f583448c01e7c343173af, type: 3}
+  position: {fileID: 0}
 --- !u!1001 &9186796825779497775
 PrefabInstance:
   m_ObjectHideFlags: 0

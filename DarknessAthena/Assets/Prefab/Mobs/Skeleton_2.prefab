@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 147868138477216197}
   - component: {fileID: 2279653889940231741}
   m_Layer: 0
-  m_Name: Vampire
+  m_Name: Skeleton_2
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 467462647
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: eb599cbfce13bd74b84511c2ca591725, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4cbe47ba79b28874680a83bd6dd1a280, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Detection_Range: 0
   Damage: 0
-  Ennemy_Type: 3
+  Ennemy_Type: 0
 --- !u!61 &7602735273102371780
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0006760359, y: -0.043560386}
+  m_Offset: {x: -0.01542601, y: -0.049469396}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -147,7 +147,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.09847593, y: 0.03647685}
+  m_Size: {x: 0.109998524, y: 0.048294872}
   m_EdgeRadius: 0
 --- !u!114 &5303239720440724811
 MonoBehaviour:
@@ -169,34 +169,37 @@ MonoBehaviour:
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 000000005f45a470f7e9dc1b
   m_ShapePath:
-  - {x: -0.044133067, y: -0.06929731, z: 0}
-  - {x: -0.04825747, y: -0.043352842, z: 0}
-  - {x: -0.050203323, y: -0.021627188, z: 0}
-  - {x: -0.04921806, y: -0.009088993, z: 0}
-  - {x: -0.050834298, y: 0.010129452, z: 0}
-  - {x: -0.039658666, y: 0.038894415, z: 0}
-  - {x: -0.025355458, y: 0.058362722, z: 0}
+  - {x: -0.052999735, y: -0.051633596, z: 0}
+  - {x: -0.06060648, y: -0.032870844, z: 0}
+  - {x: -0.06969476, y: -0.030724794, z: 0}
+  - {x: -0.06798744, y: 0.00062666833, z: 0}
+  - {x: -0.058142424, y: 0.010273308, z: 0}
+  - {x: -0.040571928, y: 0.018697478, z: 0}
+  - {x: -0.051001787, y: 0.02119556, z: 0}
+  - {x: -0.050514936, y: 0.049342535, z: 0}
+  - {x: -0.0321393, y: 0.07062348, z: 0}
   - {x: 0.000054717064, y: 0.06990141, z: 0}
-  - {x: 0.030951977, y: 0.067952156, z: 0}
-  - {x: 0.05016628, y: 0.060376048, z: 0}
-  - {x: 0.048917055, y: 0.03334284, z: 0}
-  - {x: 0.047454834, y: 0.0018565655, z: 0}
-  - {x: 0.039812595, y: -0.023281157, z: 0}
-  - {x: 0.03939846, y: -0.07339269, z: 0}
+  - {x: 0.020400286, y: 0.069455095, z: 0}
+  - {x: 0.023211002, y: 0.064909995, z: 0}
+  - {x: 0.03644705, y: 0.049785674, z: 0}
+  - {x: 0.040405273, y: 0.029113494, z: 0}
+  - {x: 0.031044245, y: -0.010364413, z: 0}
+  - {x: 0.020797968, y: -0.05047913, z: 0}
+  - {x: 0.018939734, y: -0.070023045, z: 0}
   - {x: 0.009580016, y: -0.071321964, z: 0}
-  - {x: 0.008353829, y: -0.07093835, z: 0}
-  - {x: 0.003668189, y: -0.069793224, z: 0}
+  - {x: 0.0041787624, y: -0.06773484, z: 0}
+  - {x: -0.00080156326, y: -0.06825523, z: 0}
   - {x: -0.0016019046, y: -0.068837106, z: 0}
   - {x: -0.029763728, y: -0.06925124, z: 0}
-  - {x: -0.030177832, y: -0.071751356, z: 0}
-  - {x: -0.035659313, y: -0.07211661, z: 0}
-  - {x: -0.037617177, y: -0.07088876, z: 0}
-  m_ShapePathHash: 940867117
+  - {x: -0.035713673, y: -0.07135308, z: 0}
+  - {x: -0.040453434, y: -0.07052483, z: 0}
+  - {x: -0.047726393, y: -0.07016668, z: 0}
+  m_ShapePathHash: -453506073
   m_Mesh: {fileID: 0}
-  m_InstanceId: -302386
+  m_InstanceId: -304466
   m_LocalBounds:
-    m_Center: {x: -0.00033400953, y: -0.0017456412, z: 0}
-    m_Extent: {x: 0.05050029, y: 0.07164705, z: 0}
+    m_Center: {x: -0.014644742, y: -0.00036479533, z: 0}
+    m_Extent: {x: 0.055050015, y: 0.07098828, z: 0}
 --- !u!50 &147868138477216197
 Rigidbody2D:
   serializedVersion: 4
@@ -222,7 +225,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &2279653889940231741
 MonoBehaviour:

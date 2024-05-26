@@ -27,6 +27,15 @@ public class MoveMob : MonoBehaviour
 
     private PauseCheck PauseManager;
 
+    private void Apply_Stats(float speed, float range_detec, float range_atk, float dmg, float time_bfr_move)
+    {
+        speed_max = speed;
+        Detection_Range = range_detec;
+        Attack_Range = range_atk;
+        Damage = dmg;
+        time_before_re_moving_value = time_bfr_move;
+    }
+
     void Start()
     {
         PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
@@ -36,32 +45,16 @@ public class MoveMob : MonoBehaviour
         is_moving = true;
         time_before_re_moving = 0f;
         if (Ennemy_Type == 0) { //Skeleton de base
-            speed_max = 0.3f;
-            Detection_Range = 3f;
-            Attack_Range = 0.5f;
-            Damage = 5f;
-            time_before_re_moving_value = 1f;
+            Apply_Stats(0.3f, 3f, 0.5f, 5f, 1f);
         }
         if (Ennemy_Type == 1) { //Skeleton faucille
-            speed_max = 0.3f;
-            Detection_Range = 3f;
-            Attack_Range = 0.5f;
-            Damage = 15f;
-            time_before_re_moving_value = 1.5f;
+            Apply_Stats(0.3f, 3f, 0.5f, 15f, 1.5f);
         }
         if (Ennemy_Type == 2) { //Skull
-            speed_max = 0.6f;
-            Detection_Range = 3f;
-            Attack_Range = 3f;
-            Damage = 7f;
-            time_before_re_moving_value = 0.5f;
+            Apply_Stats(0.6f, 3f, 3f, 7f, 0.5f);
         }
         if (Ennemy_Type == 3) { //Vampire
-            speed_max = 1.5f;
-            Detection_Range = 6f;
-            Attack_Range = 0f;
-            Damage = 20f;
-            time_before_re_moving_value = 2.5f;
+            Apply_Stats(1.5f, 6f, 0f, 20f, 2.5f);
         }
     }
 
@@ -71,7 +64,14 @@ public class MoveMob : MonoBehaviour
             obj_transform.position.x - transform.position.x);
 
         Vector2 direction = new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_Hero));
-        transform.position = Vector2.MoveTowards(transform.position, obj_transform.position, speed_max * Time.deltaTime * speed_boost);
+        Vector3 direction3 = new Vector3(direction.x, direction.y, 0) * speed_max * Time.deltaTime * speed_boost;
+        if (speed_boost >= 0f) {
+            transform.position = Vector2.MoveTowards(transform.position, obj_transform.position, speed_max * Time.deltaTime * speed_boost);
+        } else {
+            if (!Physics.Raycast(transform.position, direction3, speed_max * Time.deltaTime * speed_boost)) {
+                transform.position = Vector2.MoveTowards(transform.position, obj_transform.position, speed_max * Time.deltaTime * speed_boost);
+            }
+        }
 
         if (Ennemy_Type != 2)
             transform.rotation = Quaternion.Euler(0, 0,
@@ -114,19 +114,38 @@ public class MoveMob : MonoBehaviour
         return true;
     }
 
+    private bool is_wall_behind(GameObject obj)
+    {
+        float Angle_to_obj = -Mathf.Atan2(obj.transform.position.y - transform.position.y,
+            obj.transform.position.x - transform.position.x);
+        ray_list = Physics2D.RaycastAll(transform.position,
+            new Vector2(Mathf.Cos(Angle_to_Hero), Mathf.Sin(Angle_to_obj)));
+        foreach (RaycastHit2D ray in ray_list) {
+            if (ray.collider.tag == "Wall" && ray.distance < speed_max * Time.deltaTime)
+                return true;
+        }
+        return false;
+    }
+
     private bool in_light_run_out(float offset)
     {
         distance_from_torch = 0f;
     
         GameObject[] LstTorch = GameObject.FindGameObjectsWithTag("Torch");
+        
         foreach (GameObject one_torch in LstTorch) {
             distance_from_torch = Vector2.Distance(one_torch.GetComponent<Transform>().position,
                 new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z));
             radius_torch = one_torch.GetComponent<CircleCollider2D>().radius;
             if (one_torch.GetComponent<basic_torch>().state == true &&
                 distance_from_torch + offset <= radius_torch && is_torch_in_sight(one_torch.GetComponent<Transform>())) {
-                Run_into_Player(-1f, one_torch.GetComponent<Transform>());
-                return true;
+                if (!is_wall_behind(one_torch)){
+                    Run_into_Player(-1f, one_torch.GetComponent<Transform>());
+                    return true;
+                }
+                if (Ennemy_Type != 2)
+                    transform.rotation = Quaternion.Euler(0, 0,
+                        Mathf.PingPong(Time.time * 100, 10) - 5);
             }
         }
         return false;
@@ -162,9 +181,8 @@ public class MoveMob : MonoBehaviour
             if ((is_player_in_sight() && is_moving && !in_light(-0.105f))
                 || (distance_from_player <= Attack_Range && is_moving && is_player_in_sight())) {
                 Run_into_Player(1f, Player_pos);
-            } else if (in_light_run_out(-0.105f) && is_moving) {         
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+            } else 
+                in_light_run_out(-0.105f);
         }
     }
 
