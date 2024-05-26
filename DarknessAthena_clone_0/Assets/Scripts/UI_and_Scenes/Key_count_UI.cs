@@ -17,6 +17,9 @@ public class Key_count_UI : MonoBehaviour
 
     void Update()
     {
-        txt.text = player.GetComponent<Key_script>().key_count.ToString();
+        if (player)
+            txt.text = player.GetComponent<Key_script>().key_count.ToString();
+        else        
+            player = GameObject.Find("Player");
     }
 }

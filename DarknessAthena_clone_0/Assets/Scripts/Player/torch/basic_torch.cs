@@ -17,21 +17,21 @@ public class basic_torch : MonoBehaviour
     private GameObject torch;
     public ParticleSystem particles;
     public Light2D light_torch;
-    private PauseCheck PauseManager;
+    //private PauseCheck PauseManager;
 
     void Start()
     {
         torch = gameObject;
         hitbox = torch.GetComponent<CircleCollider2D>();
-        PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
+        //PauseManager = GameObject.Find("GameManager").GetComponent<PauseCheck>();
     }
     public void switch_torch_state()
     {
-        if (PauseManager.IsPlaying) {
+        //if (PauseManager.IsPlaying) {
             state = !state;
             if (state)
                 fuel = fuel * 0.95f;
-        }
+        //}
     }
     private void update_torch_radius(float time_spent)
     {
@@ -43,7 +43,7 @@ public class basic_torch : MonoBehaviour
     }
     void Update()
     {
-        if (PauseManager.IsPlaying) {
+        //if (PauseManager.IsPlaying) {
             update_torch_radius(Time.deltaTime);
             light_torch.intensity = Mathf.Log(Mathf.PingPong(Time.time, 1) + 2f);
             light_torch.pointLightOuterRadius =  (fuel * max_radius) / max_fuel + 0.3f;
@@ -55,6 +55,6 @@ public class basic_torch : MonoBehaviour
             } else {
                 particles.Stop();
             }
-        }
+        //}
     }
 }

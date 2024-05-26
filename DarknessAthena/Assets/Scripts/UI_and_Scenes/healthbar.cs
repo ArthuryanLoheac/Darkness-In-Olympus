@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class healthbar : MonoBehaviour
 {
     private Image fill_bar;
-    private GameObject player;
+    private GameObject player = null;
 
     void Start()
     {
@@ -15,6 +15,9 @@ public class healthbar : MonoBehaviour
     }
     void Update()
     {
-        fill_bar.fillAmount = player.GetComponent<LifePlayer>().get_life_as_percent() / 100f;
+        if (player)
+            fill_bar.fillAmount = player.GetComponent<LifePlayer>().get_life_as_percent() / 100f;
+        else        
+            player = GameObject.Find("Player");
     }
 }
