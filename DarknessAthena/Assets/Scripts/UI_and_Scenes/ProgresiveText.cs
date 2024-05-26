@@ -40,20 +40,20 @@ public class ProgresiveText : MonoBehaviour
             cam.orthographicSize = i;
             yield return new WaitForSeconds(0.01f);
         }
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Game");
     }
 
     void Update()
     {
         if (Input.GetKey(KeyCode.Escape))
             StartCoroutine(Load_Game());
-        if (ended && Input.GetKey(KeyCode.Space)) {
+        if (ended && Input.GetKeyDown(KeyCode.Space)) {
             if (state == 0)
-                SceneManager.LoadScene(4);
+                SceneManager.LoadScene("AnimationScene_two");
             if (state == 1)
-                SceneManager.LoadScene(5);
+                SceneManager.LoadScene("AnimationScene_three");
             if (state == 2)
-                SceneManager.LoadScene(6);
+                SceneManager.LoadScene("AnimationScene_four");
             if (state == 3)
                 StartCoroutine(Load_Game());
         }
@@ -63,6 +63,10 @@ public class ProgresiveText : MonoBehaviour
         foreach (char letter in message.ToCharArray()) {
             guiText.text += letter;
             yield return new WaitForSeconds(0.02f);
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                guiText.text = message;
+                break;
+            }
         }
         ended = true;
     }

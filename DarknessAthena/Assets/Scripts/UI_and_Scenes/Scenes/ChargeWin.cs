@@ -9,7 +9,7 @@ public class ChargeWin : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(7);
+            SceneManager.LoadScene("WinMenu");
         }
     }
 }

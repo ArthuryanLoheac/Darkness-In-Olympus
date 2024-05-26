@@ -7,11 +7,11 @@ public class SwitchToGameScene : MonoBehaviour
 {
     public void SwitchToGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Game");
     }
 
     public void SwitchToAnimation()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("AnimationScene_One");
     }
 }
