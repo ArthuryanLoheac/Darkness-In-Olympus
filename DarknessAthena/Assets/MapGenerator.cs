@@ -7,6 +7,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject Room_Indicator;
     public GameObject Ground;
     public int nb_rooms = 20;
+    public List<Vector2> points;
 
     private void Spawn_Rectangle(Vector3 position, GameObject Room)
     {
@@ -62,15 +63,36 @@ public class MapGenerator : MonoBehaviour
         } while (IsAnyRoomOverLapped());
     }
 
-    void Update()
+    void DrawTriangles(List<Triangle> triangles)
     {
-        //if (IsAnyRoomOverLapped())
-        //    Debug.Log("Col");
+        foreach (Triangle t in triangles)
+        {
+            Debug.DrawLine(new Vector3(t.a.x, t.a.y, 0), new Vector3(t.b.x, t.b.y, 0), Color.red, 100f);
+            Debug.DrawLine(new Vector3(t.b.x, t.b.y, 0), new Vector3(t.c.x, t.c.y, 0), Color.red, 100f);
+            Debug.DrawLine(new Vector3(t.c.x, t.c.y, 0), new Vector3(t.a.x, t.a.y, 0), Color.red, 100f);
+        }
+    }
+
+    void Make_Triangulation()
+    {
+        for (int i = 0; i < transform.childCount; i++) {
+            points.Add(new Vector2 (transform.GetChild(i).position.x + ((transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeX * 0.16f) / 2f),
+                                    transform.GetChild(i).position.y + ((transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeY * 0.16f) / 2f)));
+        }
+        List<Point> delaunayPoints = new List<Point>();
+        foreach (Vector2 v in points)
+        {
+            delaunayPoints.Add(new Point(v.x, v.y));
+        }
+
+        List<Triangle> triangles = DelaunayTriangulation.Triangulate(delaunayPoints);
+        DrawTriangles(triangles);
     }
 
     void Awake()
     {
         Generate_Map();
         Seperate_Rooms();
+        Make_Triangulation();
     }
 }
