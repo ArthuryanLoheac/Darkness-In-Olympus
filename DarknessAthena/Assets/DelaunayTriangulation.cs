@@ -136,6 +136,28 @@ public class DelaunayTriangulation
         }
     }
 }
+public class EdgeVect
+{
+    public Vector3 p1, p2;
+
+    public EdgeVect(Vector3 p1, Vector3 p2)
+    {
+        this.p1 = p1;
+        this.p2 = p2;
+    }
+
+    public static List<EdgeVect> getEdgesFromTriangles(List<Triangle> triangles)
+    {
+        List<EdgeVect> edges = new List<EdgeVect>();
+        foreach (Triangle t in triangles)
+        {   
+            edges.Add(new EdgeVect(new Vector3(t.a.x, t.a.y, 0), new Vector3(t.b.x, t.b.y, 0)));
+            edges.Add(new EdgeVect(new Vector3(t.b.x, t.b.y, 0), new Vector3(t.c.x, t.c.y, 0)));
+            edges.Add(new EdgeVect(new Vector3(t.c.x, t.c.y, 0), new Vector3(t.a.x, t.a.y, 0)));
+        }
+        return edges;
+    }
+}
 
 public class Edge
 {
@@ -156,5 +178,50 @@ public class Edge
     public override int GetHashCode()
     {
         return p1.GetHashCode() ^ p2.GetHashCode();
+    }
+}
+
+public class WeightedEdge
+{
+    public Point p1, p2;
+    public float weight;
+
+    public WeightedEdge(Point p1, Point p2)
+    {
+        this.p1 = p1;
+        this.p2 = p2;
+        this.weight = Vector2.Distance(new Vector2(p1.x, p1.y), new Vector2(p2.x, p2.y));
+    }
+}
+
+public class MinimalSpanningTree
+{
+    public static List<EdgeVect> ComputeMinimalSpanningTree(List<EdgeVect> lstVec, int nb_rooms)
+    {
+        List<Vector3> PassedPoint = new List<Vector3>();
+        List<EdgeVect> newList = new List<EdgeVect>();
+        
+        PassedPoint.Add(lstVec[0].p1);
+        while (PassedPoint.Count < nb_rooms) {
+            foreach (EdgeVect vec in lstVec) {
+                if (PassedPoint.Contains(vec.p1) && !PassedPoint.Contains(vec.p2)) {
+                    newList.Add(vec);
+                    PassedPoint.Add(vec.p2);
+                }
+            }
+        }
+        return newList;
+    }
+
+    public static List<EdgeVect> AddRandomEdges(List<EdgeVect> lstVec, List<EdgeVect> newList)
+    {
+        foreach (EdgeVect vec in lstVec) {
+            if (!newList.Contains(vec)) {
+                if (Random.Range(0, 100) <= 10) {
+                    newList.Add(vec);
+                }
+            }
+        }
+        return newList;
     }
 }

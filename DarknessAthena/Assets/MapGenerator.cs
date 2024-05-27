@@ -63,30 +63,34 @@ public class MapGenerator : MonoBehaviour
         } while (IsAnyRoomOverLapped());
     }
 
-    void DrawTriangles(List<Triangle> triangles)
+    void DrawTriangles(List<EdgeVect> triangles)
     {
-        foreach (Triangle t in triangles)
+        foreach (EdgeVect t in triangles)
         {
-            Debug.DrawLine(new Vector3(t.a.x, t.a.y, 0), new Vector3(t.b.x, t.b.y, 0), Color.red, 100f);
-            Debug.DrawLine(new Vector3(t.b.x, t.b.y, 0), new Vector3(t.c.x, t.c.y, 0), Color.red, 100f);
-            Debug.DrawLine(new Vector3(t.c.x, t.c.y, 0), new Vector3(t.a.x, t.a.y, 0), Color.red, 100f);
+            Debug.DrawLine(t.p1, t.p2, Color.red, 100f);
         }
     }
 
     void Make_Triangulation()
     {
+        //Get All Center of rooms
         for (int i = 0; i < transform.childCount; i++) {
             points.Add(new Vector2 (transform.GetChild(i).position.x + ((transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeX * 0.16f) / 2f),
                                     transform.GetChild(i).position.y + ((transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeY * 0.16f) / 2f)));
         }
+        //Add all points to delaunay List
         List<Point> delaunayPoints = new List<Point>();
         foreach (Vector2 v in points)
-        {
             delaunayPoints.Add(new Point(v.x, v.y));
-        }
 
+        //Compute Triangles
         List<Triangle> triangles = DelaunayTriangulation.Triangulate(delaunayPoints);
-        DrawTriangles(triangles);
+        //Get Edges From triangles
+        List<EdgeVect> edges = EdgeVect.getEdgesFromTriangles(triangles);
+        // Get Minimal Edges 
+        List<EdgeVect> newedges = MinimalSpanningTree.ComputeMinimalSpanningTree(edges, nb_rooms);
+        List<EdgeVect> newedges2 = MinimalSpanningTree.AddRandomEdges(edges, newedges);
+        DrawTriangles(newedges2);
     }
 
     void Awake()
