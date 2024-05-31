@@ -7,7 +7,6 @@ public class MapGenerator : MonoBehaviour
     public GameObject Room_Indicator;
     public GameObject Ground;
     public int nb_rooms = 20;
-    public List<Vector2> points;
 
     private void Spawn_Rectangle(Vector3 position, GameObject Room)
     {
@@ -71,32 +70,86 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
-    void Make_Triangulation()
+    List<EdgeVect> Make_Triangulation()
     {
+        List<Point> points = new List<Point>();
         //Get All Center of rooms
         for (int i = 0; i < transform.childCount; i++) {
-            points.Add(new Vector2 (transform.GetChild(i).position.x + ((transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeX * 0.16f) / 2f),
-                                    transform.GetChild(i).position.y + ((transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeY * 0.16f) / 2f)));
+            points.Add(new Point(transform.GetChild(i).position.x + (transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeX * 0.16f / 2f),
+                                transform.GetChild(i).position.y + (transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeY * 0.16f / 2f),
+                                transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeX,
+                                transform.GetChild(i).gameObject.GetComponent<RoomStats>().sizeY));
         }
-        //Add all points to delaunay List
-        List<Point> delaunayPoints = new List<Point>();
-        foreach (Vector2 v in points)
-            delaunayPoints.Add(new Point(v.x, v.y));
 
         //Compute Triangles
-        List<Triangle> triangles = DelaunayTriangulation.Triangulate(delaunayPoints);
+        List<Triangle> triangles = DelaunayTriangulation.Triangulate(points);
         //Get Edges From triangles
         List<EdgeVect> edges = EdgeVect.getEdgesFromTriangles(triangles);
         // Get Minimal Edges 
         List<EdgeVect> newedges = MinimalSpanningTree.ComputeMinimalSpanningTree(edges, nb_rooms);
         List<EdgeVect> newedges2 = MinimalSpanningTree.AddRandomEdges(edges, newedges);
         DrawTriangles(newedges2);
+        return newedges2;
+    }
+
+    void Instantiate_horline(float a, float b, GameObject obj, float x)
+    {
+        if (a < b) {
+            for (float y = a; y <= b; y += 0.16f)
+                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+        } else {
+            for (float y = b; y <= a; y += 0.16f)
+                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+        }
+    }
+
+    void Instantiate_verline(float a, float b, GameObject obj, float y)
+    {
+        if (a < b) {
+            for (float x = a; x <= b; x += 0.16f)
+                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+        } else {
+            for (float x = b; x <= a; x += 0.16f)
+                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+        }
+    }
+
+    bool IsCollidingInX(Vector3 p1pos, Vector3 p2pos, Vector2 p1size, Vector2 p2size)
+    {
+        if (p2pos.x - (p2size.x / 2f * 0.16f) > p1pos.x - (p1size.x / 2f * 0.16f) &&
+            p2pos.x - (p2size.x / 2f * 0.16f) <= p1pos.x + (p1size.x / 2f * 0.16f)) {
+            return true;
+        }
+        if (p1pos.x - (p1size.x / 2f * 0.16f) > p2pos.x - (p2size.x / 2f * 0.16f) &&
+            p1pos.x - (p1size.x / 2f * 0.16f) <= p2pos.x + (p2size.x / 2f * 0.16f)) {
+            return true;
+        }
+        return false;
+    }
+
+    void Make_Couloirs(List<EdgeVect> newedges2)
+    {
+        Vector3 p1pos, p2pos;
+        Vector2 p1size, p2size;
+        int i = 0;
+
+        foreach (EdgeVect vect in newedges2) {
+            i++;
+            p1pos = new Vector3 (Mathf.FloorToInt(vect.p1.x / 0.16f) * 0.16f, Mathf.FloorToInt(vect.p1.y / 0.16f) * 0.16f, vect.p1.z);
+            p2pos = new Vector3 (Mathf.FloorToInt(vect.p2.x / 0.16f) * 0.16f, Mathf.FloorToInt(vect.p2.y / 0.16f) * 0.16f, vect.p2.z);
+            p1size = vect.sizep1;
+            p2size = vect.sizep2;
+            GameObject Couloir = new GameObject("Couloir_" + i.ToString());
+            Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x);
+            Instantiate_verline(p1pos.x, p2pos.x, Couloir, p2pos.y);
+        }
     }
 
     void Awake()
     {
         Generate_Map();
         Seperate_Rooms();
-        Make_Triangulation();
+        List<EdgeVect> newedges2 = Make_Triangulation();
+        Make_Couloirs(newedges2);
     }
 }

@@ -5,11 +5,14 @@ using UnityEngine;
 public class Point
 {
     public float x, y;
+    public float sizex, sizey;
 
-    public Point(float x, float y)
+    public Point(float x, float y, float sizex, float sizey)
     {
         this.x = x;
         this.y = y;
+        this.sizex = sizex;
+        this.sizey = sizey;
     }
 }
 
@@ -71,9 +74,9 @@ public class DelaunayTriangulation
         float midx = (minX + maxX) / 2f;
         float midy = (minY + maxY) / 2f;
 
-        Point p1 = new Point(midx - 20 * deltaMax, midy - deltaMax);
-        Point p2 = new Point(midx, midy + 20 * deltaMax);
-        Point p3 = new Point(midx + 20 * deltaMax, midy - deltaMax);
+        Point p1 = new Point(midx - 20 * deltaMax, midy - deltaMax, 0, 0);
+        Point p2 = new Point(midx, midy + 20 * deltaMax, 0, 0);
+        Point p3 = new Point(midx + 20 * deltaMax, midy - deltaMax, 0, 0);
 
         triangles.Add(new Triangle(p1, p2, p3));
 
@@ -139,11 +142,14 @@ public class DelaunayTriangulation
 public class EdgeVect
 {
     public Vector3 p1, p2;
+    public Vector2 sizep1, sizep2;
 
-    public EdgeVect(Vector3 p1, Vector3 p2)
+    public EdgeVect(Vector3 p1, Vector3 p2, Vector2 sizep1, Vector2 sizep2)
     {
         this.p1 = p1;
         this.p2 = p2;
+        this.sizep1 = sizep1;
+        this.sizep2 = sizep2;
     }
 
     public static List<EdgeVect> getEdgesFromTriangles(List<Triangle> triangles)
@@ -151,9 +157,9 @@ public class EdgeVect
         List<EdgeVect> edges = new List<EdgeVect>();
         foreach (Triangle t in triangles)
         {   
-            edges.Add(new EdgeVect(new Vector3(t.a.x, t.a.y, 0), new Vector3(t.b.x, t.b.y, 0)));
-            edges.Add(new EdgeVect(new Vector3(t.b.x, t.b.y, 0), new Vector3(t.c.x, t.c.y, 0)));
-            edges.Add(new EdgeVect(new Vector3(t.c.x, t.c.y, 0), new Vector3(t.a.x, t.a.y, 0)));
+            edges.Add(new EdgeVect(new Vector3(t.a.x, t.a.y, 0), new Vector3(t.b.x, t.b.y, 0), new Vector2(t.a.sizex, t.a.sizey), new Vector2(t.b.sizex, t.b.sizey)));
+            edges.Add(new EdgeVect(new Vector3(t.b.x, t.b.y, 0), new Vector3(t.c.x, t.c.y, 0), new Vector2(t.b.sizex, t.b.sizey), new Vector2(t.c.sizex, t.c.sizey)));
+            edges.Add(new EdgeVect(new Vector3(t.c.x, t.c.y, 0), new Vector3(t.a.x, t.a.y, 0), new Vector2(t.c.sizex, t.c.sizey), new Vector2(t.a.sizex, t.a.sizey)));
         }
         return edges;
     }

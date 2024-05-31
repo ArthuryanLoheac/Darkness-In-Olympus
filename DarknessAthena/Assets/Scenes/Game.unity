@@ -890,8 +890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Room_Indicator: {fileID: 156868925581718423, guid: 01f9d6ab6aee7874582719472dc802a7, type: 3}
   Ground: {fileID: 1314586921323566250, guid: db1178822fe8aa143bd6349d655de552, type: 3}
-  nb_rooms: 40
-  points: []
+  nb_rooms: 50
 --- !u!4 &797745421
 Transform:
   m_ObjectHideFlags: 0
@@ -1794,7 +1793,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935540571}
   m_CullTransparentMesh: 1
---- !u!43 &2091845515
+--- !u!43 &1947944200
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
