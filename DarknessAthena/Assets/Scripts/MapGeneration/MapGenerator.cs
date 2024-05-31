@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public GameObject Room_Indicator;
-    public GameObject Ground;
+    public GameObject[] Grounds;
     public int nb_rooms = 20;
 
     private void Spawn_Rectangle(Vector3 position, GameObject Room)
@@ -17,7 +17,7 @@ public class MapGenerator : MonoBehaviour
         for (int x = 0; x < size.x; x++) {
             for (int y = 0; y < size.y; y++) {
                 Vector3 positionUpt = new Vector3 (position.x + (x * 0.16f), position.y + (y * 0.16f), 0f);
-                Instantiate(Ground, positionUpt, Quaternion.identity, Room.transform);
+                Instantiate(Grounds[Random.Range(0, Grounds.Length)], positionUpt, Quaternion.identity, Room.transform);
             }
         }
     }
@@ -88,7 +88,6 @@ public class MapGenerator : MonoBehaviour
         // Get Minimal Edges 
         List<EdgeVect> newedges = MinimalSpanningTree.ComputeMinimalSpanningTree(edges, nb_rooms);
         List<EdgeVect> newedges2 = MinimalSpanningTree.AddRandomEdges(edges, newedges);
-        //DrawTriangles(newedges2);
         return newedges2;
     }
 
@@ -96,10 +95,10 @@ public class MapGenerator : MonoBehaviour
     {
         if (a < b) {
             for (float y = a; y <= maxb; y += 0.16f)
-                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         } else {
             for (float y = b; y <= maxa; y += 0.16f)
-                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         }
     }
 
@@ -107,10 +106,10 @@ public class MapGenerator : MonoBehaviour
     {
         if (a < b) {
             for (float x = a - 0.16f; x <= maxb; x += 0.16f)
-                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         } else {
             for (float x = b - 0.16f; x <= maxa; x += 0.16f)
-                Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         }
     }
 
@@ -129,8 +128,7 @@ public class MapGenerator : MonoBehaviour
 
     void Make_Couloirs(List<EdgeVect> newedges2)
     {
-        Vector3 p1pos, p2pos;
-        Vector3 maxp1pos, maxp2pos;
+        Vector3 p1pos, p2pos, maxp1pos, maxp2pos;
         Vector2 p1size, p2size;
         int i = 0;
 
@@ -138,11 +136,13 @@ public class MapGenerator : MonoBehaviour
             i++;
             maxp1pos = vect.p1;
             maxp2pos = vect.p2;
+            //rounded position to clip to grid
             p1pos = new Vector3 (Mathf.FloorToInt(vect.p1.x / 0.16f) * 0.16f, Mathf.FloorToInt(vect.p1.y / 0.16f) * 0.16f, vect.p1.z);
             p2pos = new Vector3 (Mathf.FloorToInt(vect.p2.x / 0.16f) * 0.16f, Mathf.FloorToInt(vect.p2.y / 0.16f) * 0.16f, vect.p2.z);
             p1size = vect.sizep1;
             p2size = vect.sizep2;
             GameObject Couloir = new GameObject("Couloir_" + i.ToString());
+            Couloir.transform.SetParent(transform);
             Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x, maxp1pos.y, maxp2pos.y);
             Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x - 0.16f, maxp1pos.y, maxp2pos.y);
             Instantiate_verline(p1pos.x, p2pos.x, Couloir, p2pos.y, maxp1pos.x, maxp2pos.x);
