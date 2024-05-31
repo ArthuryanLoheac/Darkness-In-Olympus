@@ -88,28 +88,28 @@ public class MapGenerator : MonoBehaviour
         // Get Minimal Edges 
         List<EdgeVect> newedges = MinimalSpanningTree.ComputeMinimalSpanningTree(edges, nb_rooms);
         List<EdgeVect> newedges2 = MinimalSpanningTree.AddRandomEdges(edges, newedges);
-        DrawTriangles(newedges2);
+        //DrawTriangles(newedges2);
         return newedges2;
     }
 
-    void Instantiate_horline(float a, float b, GameObject obj, float x)
+    void Instantiate_horline(float a, float b, GameObject obj, float x, float maxa, float maxb)
     {
         if (a < b) {
-            for (float y = a; y <= b; y += 0.16f)
+            for (float y = a; y <= maxb; y += 0.16f)
                 Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         } else {
-            for (float y = b; y <= a; y += 0.16f)
+            for (float y = b; y <= maxa; y += 0.16f)
                 Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         }
     }
 
-    void Instantiate_verline(float a, float b, GameObject obj, float y)
+    void Instantiate_verline(float a, float b, GameObject obj, float y, float maxa, float maxb)
     {
         if (a < b) {
-            for (float x = a; x <= b; x += 0.16f)
+            for (float x = a - 0.16f; x <= maxb; x += 0.16f)
                 Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         } else {
-            for (float x = b; x <= a; x += 0.16f)
+            for (float x = b - 0.16f; x <= maxa; x += 0.16f)
                 Instantiate(Ground, new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         }
     }
@@ -130,18 +130,23 @@ public class MapGenerator : MonoBehaviour
     void Make_Couloirs(List<EdgeVect> newedges2)
     {
         Vector3 p1pos, p2pos;
+        Vector3 maxp1pos, maxp2pos;
         Vector2 p1size, p2size;
         int i = 0;
 
         foreach (EdgeVect vect in newedges2) {
             i++;
+            maxp1pos = vect.p1;
+            maxp2pos = vect.p2;
             p1pos = new Vector3 (Mathf.FloorToInt(vect.p1.x / 0.16f) * 0.16f, Mathf.FloorToInt(vect.p1.y / 0.16f) * 0.16f, vect.p1.z);
             p2pos = new Vector3 (Mathf.FloorToInt(vect.p2.x / 0.16f) * 0.16f, Mathf.FloorToInt(vect.p2.y / 0.16f) * 0.16f, vect.p2.z);
             p1size = vect.sizep1;
             p2size = vect.sizep2;
             GameObject Couloir = new GameObject("Couloir_" + i.ToString());
-            Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x);
-            Instantiate_verline(p1pos.x, p2pos.x, Couloir, p2pos.y);
+            Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x, maxp1pos.y, maxp2pos.y);
+            Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x - 0.16f, maxp1pos.y, maxp2pos.y);
+            Instantiate_verline(p1pos.x, p2pos.x, Couloir, p2pos.y, maxp1pos.x, maxp2pos.x);
+            Instantiate_verline(p1pos.x, p2pos.x, Couloir, p2pos.y - 0.16f, maxp1pos.x, maxp2pos.x);
         }
     }
 
