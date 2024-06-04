@@ -1,26 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MapGenerator : MonoBehaviour
 {
     public GameObject Room_Indicator;
-    public GameObject[] Grounds;
     public int nb_rooms = 20;
-
-    private void Spawn_Rectangle(Vector3 position, GameObject Room)
-    {
-        Vector2 size = new Vector2 (Random.Range(4, 20), Random.Range(4, 20));
-        
-        RoomStats stats = Room.GetComponent<RoomStats>();
-        stats.SetStats(size.x, size.y, position);
-        for (int x = 0; x < size.x; x++) {
-            for (int y = 0; y < size.y; y++) {
-                Vector3 positionUpt = new Vector3 (position.x + (x * 0.16f), position.y + (y * 0.16f), 0f);
-                Instantiate(Grounds[Random.Range(0, Grounds.Length)], positionUpt, Quaternion.identity, Room.transform);
-            }
-        }
-    }
+    private RoomGenerator RG;
 
     private void Generate_Map()
     {
@@ -29,7 +16,7 @@ public class MapGenerator : MonoBehaviour
             position = new Vector3 (Random.Range(-(nb_rooms / 4f), (nb_rooms / 4f)), Random.Range(-(nb_rooms / 4f), (nb_rooms / 4f)), 0f);
             position = new Vector3 (Mathf.FloorToInt(position.x / 0.16f) * 0.16f, Mathf.FloorToInt(position.y / 0.16f) * 0.16f, 0f);
             GameObject Room = Instantiate(Room_Indicator, position, Quaternion.identity, this.transform);
-            Spawn_Rectangle(position, Room);
+            RG.Spawn_Rectangle(position, Room);
         }
     }
 
@@ -95,10 +82,10 @@ public class MapGenerator : MonoBehaviour
     {
         if (a < b) {
             for (float y = a; y <= maxb; y += 0.16f)
-                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         } else {
             for (float y = b; y <= maxa; y += 0.16f)
-                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         }
     }
 
@@ -106,10 +93,10 @@ public class MapGenerator : MonoBehaviour
     {
         if (a < b) {
             for (float x = a - 0.16f; x <= maxb; x += 0.16f)
-                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         } else {
             for (float x = b - 0.16f; x <= maxa; x += 0.16f)
-                Instantiate(Grounds[Random.Range(0, Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
         }
     }
 
@@ -150,11 +137,28 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+    List<Vector2> GetPositions()
+    {
+        List<Vector2> PositionGrounds = new List<Vector2>();
+
+        for (int idChildren = 0; idChildren < transform.childCount; idChildren++) {
+            GameObject Children = transform.GetChild(idChildren).gameObject;
+            for (int IdGround = 0; IdGround < Children.transform.childCount; IdGround++) {
+                GameObject GroundChild = Children.transform.GetChild(IdGround).gameObject;
+                PositionGrounds.Add(new Vector2(GroundChild.transform.position.x, GroundChild.transform.position.y));
+            }
+        }
+        return PositionGrounds;
+    }
+
     void Awake()
     {
+        RG = this.GetComponent<RoomGenerator>();
         Generate_Map();
         Seperate_Rooms();
         List<EdgeVect> newedges2 = Make_Triangulation();
         Make_Couloirs(newedges2);
+        List<Vector2> PositionGrounds = GetPositions();
+        RG.GenerateWalls(PositionGrounds);
     }
 }
