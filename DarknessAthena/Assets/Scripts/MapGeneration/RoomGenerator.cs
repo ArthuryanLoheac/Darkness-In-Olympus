@@ -14,6 +14,11 @@ public class RoomGenerator : MonoBehaviour
     public GameObject WallUp;
     public GameObject WallLeft;
     public GameObject WallRight;
+    public GameObject WallFull;
+    public GameObject WallFullRightLeft;
+    public GameObject WallFullRight;
+    public GameObject WallFullLeft;
+    public GameObject WallFullUp;
     public List<Vector2> lst;
 
     public void Spawn_Rectangle(Vector3 position, GameObject Room)
@@ -89,28 +94,59 @@ public class RoomGenerator : MonoBehaviour
 
         if (Up && Down && Left && Right)
             Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+        else if (Left && Right && Up)
+            Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+        else if (Left && Right && Down)
+            Instantiate(WallFullUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+        else if (Left && Right)
+            Instantiate(WallFull, new Vector3(x, y, 0), Quaternion.identity, transform);
         else if (Up)
             Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
         else if (Down) {
-            if (getValueatPos(x, y - 0.16f, PositionGrounds) == 4 || getValueatPos(x, y - 0.16f, PositionGrounds) == 6)
-                Instantiate(WallDownRightLink, new Vector3(x, y, 0), Quaternion.identity, transform);
-            else if (getValueatPos(x, y - 0.16f, PositionGrounds) == 5 || getValueatPos(x, y - 0.16f, PositionGrounds) == 7)
+            if (getValueatPos(x, y - 0.16f, PositionGrounds) == 4 || getValueatPos(x, y - 0.16f, PositionGrounds) == 6 ||
+                (getValueatPos(x, y - 0.16f, PositionGrounds) == 1 && Left) || (getValueatPos(x, y - 0.16f, PositionGrounds) == 2 && Left))
+                if ((DownRight || getValueatPos(x + 0.16f, y - 0.16f, PositionGrounds) == 3) && (DownLeft || getValueatPos(x - 0.16f, y - 0.16f, PositionGrounds) == 3))
+                    Instantiate(WallFullUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+                else
+                    Instantiate(WallDownRightLink, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else if (getValueatPos(x, y - 0.16f, PositionGrounds) == 5 || getValueatPos(x, y - 0.16f, PositionGrounds) == 7 ||
+                (getValueatPos(x, y - 0.16f, PositionGrounds) == 1 && Right) || (getValueatPos(x, y - 0.16f, PositionGrounds) == 2 && Right))
                 Instantiate(WallDownLeftLink, new Vector3(x, y, 0), Quaternion.identity, transform);
             else 
                 Instantiate(WallDown, new Vector3(x, y, 0), Quaternion.identity, transform);
-        } else if (Left)
-            Instantiate(WallLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (Right)
+        } else if (Left) {
+            if (getValueatPos(x - 0.16f, y, PositionGrounds) == 2)
+                Instantiate(WallFull, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else if (getValueatPos(x - 0.16f, y, PositionGrounds) == 3)
+                Instantiate(WallFullLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (Right) {
+            if (getValueatPos(x + 0.16f, y, PositionGrounds) == 2)
+                Instantiate(WallFull, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else if (getValueatPos(x + 0.16f, y, PositionGrounds) == 3)
+                Instantiate(WallFullRight, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallRight, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (UpRight) {
+            if (getValueatPos(x, y - 0.16f, PositionGrounds) == 4)
+                Instantiate(WallLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallDownLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (UpLeft) {
+            if (getValueatPos(x, y - 0.16f, PositionGrounds) == 4)
+                Instantiate(WallRight, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallDownRight, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (DownRight){
+            if (getValueatPos(x + 0.16f, y, PositionGrounds) == 2 && getValueatPos(x - 0.16f, y, PositionGrounds) == 2)
+                Instantiate(WallFull, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else 
+                Instantiate(WallLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
+        }else if (DownLeft){
+        
             Instantiate(WallRight, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (UpRight)
-            Instantiate(WallDownLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (UpLeft)
-            Instantiate(WallDownRight, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (DownRight)
-            Instantiate(WallLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (DownLeft)
-            Instantiate(WallRight, new Vector3(x, y, 0), Quaternion.identity, transform);
-
+        }
     }
 
     public void GenerateWalls(List<Vector2> PositionGrounds)
