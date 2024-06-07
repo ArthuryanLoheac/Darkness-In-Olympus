@@ -12,6 +12,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject WallDownLeft;
     public GameObject WallDownLeftLink;
     public GameObject WallUp;
+    public GameObject WallUpBlock;
     public GameObject WallLeft;
     public GameObject WallRight;
     public GameObject WallFull;
@@ -92,17 +93,26 @@ public class RoomGenerator : MonoBehaviour
         bool DownRight = isInList(x + 0.16f, y - 0.16f, PositionGrounds);
         bool DownLeft = isInList(x - 0.16f, y - 0.16f, PositionGrounds);
 
-        if (Up && Down && Left && Right)
-            Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (Left && Right && Up)
-            Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (Left && Right && Down)
+        if (Up && Down && Left && Right) {
+            if (!Down)
+                Instantiate(WallUpBlock, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (Left && Right && Up) {
+            if (!Down)
+                Instantiate(WallUpBlock, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (Left && Right && Down)
             Instantiate(WallFullUp, new Vector3(x, y, 0), Quaternion.identity, transform);
         else if (Left && Right)
             Instantiate(WallFull, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (Up)
-            Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
-        else if (Down) {
+        else if (Up) {
+            if (!Down)
+                Instantiate(WallUpBlock, new Vector3(x, y, 0), Quaternion.identity, transform);
+            else
+                Instantiate(WallUp, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else if (Down) {
             if (getValueatPos(x, y - 0.16f, PositionGrounds) == 4 || getValueatPos(x, y - 0.16f, PositionGrounds) == 6 ||
                 (getValueatPos(x, y - 0.16f, PositionGrounds) == 1 && Left) || (getValueatPos(x, y - 0.16f, PositionGrounds) == 2 && Left))
                 if ((DownRight || getValueatPos(x + 0.16f, y - 0.16f, PositionGrounds) == 3) && (DownLeft || getValueatPos(x - 0.16f, y - 0.16f, PositionGrounds) == 3))
