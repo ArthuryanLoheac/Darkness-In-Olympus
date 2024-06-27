@@ -891,6 +891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Room_Indicator: {fileID: 156868925581718423, guid: 01f9d6ab6aee7874582719472dc802a7, type: 3}
   nb_rooms: 20
+  Player: {fileID: 1317371102}
 --- !u!4 &797745421
 Transform:
   m_ObjectHideFlags: 0
@@ -953,6 +954,7 @@ MonoBehaviour:
   WallFullRight: {fileID: 6647129014850106794, guid: 17a731cf2212bd84898ab82334b3ba5f, type: 3}
   WallFullLeft: {fileID: 2370201389918455605, guid: c791341b3dace3844907c7e3de04aa09, type: 3}
   WallFullUp: {fileID: 8301681712427396223, guid: 3fea836c2cd37eb448652f39f42a029b, type: 3}
+  Background: {fileID: 7640369318350057584, guid: 2ac1dc7a91978d946b5555c90e813f27, type: 3}
   lst: []
 --- !u!1 &852852152
 GameObject:
@@ -1269,7 +1271,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2546669329022679962, guid: b102cf297f4acfb41aabf8fe0accf662, type: 3}
   m_PrefabInstance: {fileID: 6420223294635195165}
   m_PrefabAsset: {fileID: 0}
---- !u!43 &1389601103
+--- !u!43 &1336573238
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -20,6 +20,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject WallFullRight;
     public GameObject WallFullLeft;
     public GameObject WallFullUp;
+    public GameObject Background;
     public List<Vector2> lst;
 
     public void Spawn_Rectangle(Vector3 position, GameObject Room)
@@ -154,8 +155,9 @@ public class RoomGenerator : MonoBehaviour
             else 
                 Instantiate(WallLeft, new Vector3(x, y, 0), Quaternion.identity, transform);
         }else if (DownLeft){
-        
             Instantiate(WallRight, new Vector3(x, y, 0), Quaternion.identity, transform);
+        } else {
+            Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
         }
     }
 
@@ -173,12 +175,30 @@ public class RoomGenerator : MonoBehaviour
         }
         Min = new Vector2(ValueX.Min() - 0.16f, ValueY.Min() - 0.16f);
         Max = new Vector2(ValueX.Max() + 0.16f, ValueY.Max() + 0.16f);
-        Debug.Log(Min);
-        Debug.Log(Max);
         for (float x = Min.x; x < Max.x; x += 0.16f) {
             for (float y = Min.y; y < Max.y; y += 0.16f) {
                 if (!isInList(x, y, PositionGrounds))
                     GenerateRightWall(x, y, PositionGrounds);
+            }   
+        }
+        for (float x = Max.x; x < Max.x + 1.6f; x += 0.16f) {
+            for (float y = Min.y - 1.6f; y < Max.y + 1.6f; y += 0.16f) {
+                Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
+            }   
+        }
+        for (float y = Max.y; y < Max.y + 1.6f; y += 0.16f) {
+            for (float x = Min.x; x < Max.x; x += 0.16f) {
+                Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
+            }   
+        }
+        for (float x = Min.x - 1.6f; x < Min.x; x += 0.16f) {
+            for (float y = Min.y - 1.6f; y < Max.y + 1.6f; y += 0.16f) {
+                Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
+            }   
+        }
+        for (float y = Min.y - 1.6f; y < Min.y; y += 0.16f) {
+            for (float x = Min.x; x < Max.x; x += 0.16f) {
+                Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
             }   
         }
     }

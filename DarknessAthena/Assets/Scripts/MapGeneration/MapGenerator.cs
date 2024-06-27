@@ -8,6 +8,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject Room_Indicator;
     public int nb_rooms = 20;
     private RoomGenerator RG;
+    public GameObject Player;
 
     private void Generate_Map()
     {
@@ -151,6 +152,14 @@ public class MapGenerator : MonoBehaviour
         return PositionGrounds;
     }
 
+    private void SetPlayerCenterFirstRoom()
+    {
+        Player.transform.position = new Vector3(
+                transform.GetChild(0).position.x + (transform.GetChild(0).GetComponent<RoomStats>().sizeX / 2) * 0.16f,
+                transform.GetChild(0).position.y + (transform.GetChild(0).GetComponent<RoomStats>().sizeY / 2) * 0.16f,
+                transform.GetChild(0).position.z);
+    }
+
     void Awake()
     {
         RG = this.GetComponent<RoomGenerator>();
@@ -160,5 +169,6 @@ public class MapGenerator : MonoBehaviour
         Make_Couloirs(newedges2);
         List<Vector2> PositionGrounds = GetPositions();
         RG.GenerateWalls(PositionGrounds);
+        SetPlayerCenterFirstRoom();
     }
 }
