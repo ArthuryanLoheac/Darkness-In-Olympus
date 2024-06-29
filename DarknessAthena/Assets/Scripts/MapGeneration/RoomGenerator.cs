@@ -23,6 +23,10 @@ public class RoomGenerator : MonoBehaviour
     public GameObject Background;
     public List<Vector2> lst;
 
+    private LoadingManager LManager;
+    public Vector2 Min;
+    public Vector2 Max;
+
     public void Spawn_Rectangle(Vector3 position, GameObject Room)
     {
         Vector2 size = new Vector2 (Random.Range(4, 20), Random.Range(4, 20));
@@ -161,26 +165,8 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateWalls(List<Vector2> PositionGrounds)
+    public void SetExternWalls()
     {
-        lst = PositionGrounds;
-        Vector2 Min;
-        Vector2 Max;
-        List<float> ValueX = new List<float>();
-        List<float> ValueY = new List<float>();
-
-        foreach (Vector2 vect in PositionGrounds) {
-            ValueX.Add(vect.x);
-            ValueY.Add(vect.y);
-        }
-        Min = new Vector2(ValueX.Min() - 0.16f, ValueY.Min() - 0.16f);
-        Max = new Vector2(ValueX.Max() + 0.16f, ValueY.Max() + 0.16f);
-        for (float x = Min.x; x < Max.x; x += 0.16f) {
-            for (float y = Min.y; y < Max.y; y += 0.16f) {
-                if (!isInList(x, y, PositionGrounds))
-                    GenerateRightWall(x, y, PositionGrounds);
-            }   
-        }
         for (float x = Max.x; x < Max.x + 1.6f; x += 0.16f) {
             for (float y = Min.y - 1.6f; y < Max.y + 1.6f; y += 0.16f) {
                 Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
@@ -201,5 +187,33 @@ public class RoomGenerator : MonoBehaviour
                 Instantiate(Background, new Vector3(x, y, 0), Quaternion.identity, transform);
             }   
         }
+    }
+
+    public void ComputeMinMaxValue(List<Vector2> PositionGrounds)
+    {
+        lst = PositionGrounds;
+        List<float> ValueX = new List<float>();
+        List<float> ValueY = new List<float>();
+
+        foreach (Vector2 vect in PositionGrounds) {
+            ValueX.Add(vect.x);
+            ValueY.Add(vect.y);
+        }
+
+        Min = new Vector2(ValueX.Min() - 0.16f, ValueY.Min() - 0.16f);
+        Max = new Vector2(ValueX.Max() + 0.16f, ValueY.Max() + 0.16f);
+    }
+
+    public void GenerateWalls(List<Vector2> PositionGrounds, float x)
+    {
+        for (float y = Min.y; y < Max.y; y += 0.16f) {
+            if (!isInList(x, y, PositionGrounds))
+                GenerateRightWall(x, y, PositionGrounds);
+        }
+    }
+
+    void Awake()
+    {
+        LManager = GameObject.Find("LoadingManager").GetComponent<LoadingManager>();
     }
 }

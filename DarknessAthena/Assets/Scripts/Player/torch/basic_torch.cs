@@ -27,7 +27,7 @@ public class basic_torch : MonoBehaviour
     }
     public void switch_torch_state()
     {
-        if (PauseManager.IsPlaying) {
+        if (PauseManager.IsPlaying && PauseManager.IsPlayerCanMove) {
             state = !state;
             if (state)
                 fuel = fuel * 0.95f;
@@ -41,9 +41,10 @@ public class basic_torch : MonoBehaviour
         var emission = particles.emission;
         emission.rateOverTime = (fuel * particles_sec_max) / max_fuel + 1;
     }
+
     void Update()
     {
-        if (PauseManager.IsPlaying) {
+        if (PauseManager.IsPlaying && PauseManager.IsPlayerCanMove) {
             update_torch_radius(Time.deltaTime);
             light_torch.intensity = Mathf.Log(Mathf.PingPong(Time.time, 1) + 2f);
             light_torch.pointLightOuterRadius =  (fuel * max_radius) / max_fuel + 0.3f;

@@ -38,7 +38,7 @@ public class topdownmovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (PauseManager.IsPlaying && life.Life > 0f)
+        if (PauseManager.IsPlaying  && PauseManager.IsPlayerCanMove && life.Life > 0f)
             Update_move();
     }
 }

@@ -5,11 +5,13 @@ using UnityEngine;
 public class PauseCheck : MonoBehaviour
 {
     public bool IsPlaying;
+    public bool IsPlayerCanMove;
     public GameObject PauseMenu;
 
     void Start()
     {
         IsPlaying = true;
+        IsPlayerCanMove = false;
         PauseMenu = GameObject.Find("PauseMenu");
         PauseMenu.SetActive(!IsPlaying);
     }

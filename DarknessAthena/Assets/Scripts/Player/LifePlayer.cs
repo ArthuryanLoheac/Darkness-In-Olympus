@@ -30,7 +30,7 @@ public class LifePlayer : MonoBehaviour
 
     void Update()
     {
-        if (PauseManager.IsPlaying && Life > 0f)
+        if (PauseManager.IsPlaying && PauseManager.IsPlayerCanMove && Life > 0f)
             Invisibility_time -= Time.deltaTime;
         if (Life <= 0f) {
             Time_animation_death += Time.deltaTime;
@@ -70,7 +70,7 @@ public class LifePlayer : MonoBehaviour
     void OnCollisionStay2D(Collision2D collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "Ennemy" &&
-            Invisibility_time <= 0f && PauseManager.IsPlaying && Life > 0f
+            Invisibility_time <= 0f && PauseManager.IsPlaying && PauseManager.IsPlayerCanMove && Life > 0f
             && collisionInfo.gameObject.GetComponent<LifeMob>().Life > 0f) {
             Decrease_Life(collisionInfo.gameObject.GetComponent<MoveMob>().Damage);
         }

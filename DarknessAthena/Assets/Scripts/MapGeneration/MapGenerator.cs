@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class MapGenerator : MonoBehaviour
@@ -9,6 +10,13 @@ public class MapGenerator : MonoBehaviour
     public int nb_rooms = 20;
     private RoomGenerator RG;
     public GameObject Player;
+
+    private int iGen = 0;
+    private List<EdgeVect> newedges2;
+    private List<Vector2> PositionGrounds;
+
+    private LoadingManager LManager;
+    private float xVal;
 
     private void Generate_Map()
     {
@@ -160,15 +168,35 @@ public class MapGenerator : MonoBehaviour
                 transform.GetChild(0).position.z);
     }
 
+    void Update()
+    {
+        if (iGen == 0) {
+            Generate_Map();
+            Seperate_Rooms();
+            newedges2 = Make_Triangulation();
+            Make_Couloirs(newedges2);
+            PositionGrounds = GetPositions();
+            RG.ComputeMinMaxValue(PositionGrounds);
+            xVal = RG.Min.x;
+            iGen++;
+        } if (iGen == 1) {
+            RG.GenerateWalls(PositionGrounds, xVal);
+            xVal += 0.16f;
+            LManager.setLoadingValue((xVal - RG.Min.x) / (RG.Max.x - RG.Min.x));
+            if (!(xVal < RG.Max.x))
+                iGen++;
+        } if (iGen == 2) {
+            RG.SetExternWalls();
+            SetPlayerCenterFirstRoom();
+            LManager.HideLoading();
+            iGen++;
+        }
+    }
+
     void Awake()
     {
+        LManager = GameObject.Find("LoadingManager").GetComponent<LoadingManager>();
         RG = this.GetComponent<RoomGenerator>();
-        Generate_Map();
-        Seperate_Rooms();
-        List<EdgeVect> newedges2 = Make_Triangulation();
-        Make_Couloirs(newedges2);
-        List<Vector2> PositionGrounds = GetPositions();
-        RG.GenerateWalls(PositionGrounds);
-        SetPlayerCenterFirstRoom();
+        LManager.ShowLoading();
     }
 }

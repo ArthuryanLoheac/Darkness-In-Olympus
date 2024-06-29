@@ -5,6 +5,7 @@ using UnityEngine;
 public class give_fire : MonoBehaviour
 {
     private basic_torch brasero;
+
     void Start()
     {
         brasero = this.gameObject.GetComponent<basic_torch>();
