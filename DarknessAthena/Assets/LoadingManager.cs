@@ -9,11 +9,11 @@ public class LoadingManager : MonoBehaviour
     public GameObject loadingPanel;
     public Slider loadingSlider;
     private PauseCheck PauseManager;
-    public TextMeshProUGUI loadingTxt;
-    public TextMeshProUGUI PourcentTxt;
+    public Text loadingTxt;
+    public Text PourcentTxt;
 
     private int points = 0;
-    private float timer = 1f;
+    private float timer = 0.5f;
 
     public void ShowLoading()
     {
