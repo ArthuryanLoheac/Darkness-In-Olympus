@@ -21,7 +21,7 @@ public class RoomGenerator : MonoBehaviour
     public GameObject WallFullLeft;
     public GameObject WallFullUp;
     public GameObject Background;
-    public List<Vector2> lst;
+    private List<Vector2> lst;
 
     private LoadingManager LManager;
     public Vector2 Min;

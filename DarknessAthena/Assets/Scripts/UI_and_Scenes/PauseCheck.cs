@@ -6,7 +6,7 @@ public class PauseCheck : MonoBehaviour
 {
     public bool IsPlaying;
     public bool IsPlayerCanMove;
-    public GameObject PauseMenu;
+    private GameObject PauseMenu;
 
     void Start()
     {
