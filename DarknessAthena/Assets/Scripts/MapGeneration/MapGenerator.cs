@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
     public int nb_rooms = 20;
     private RoomGenerator RG;
     public GameObject Player;
-    private GenerateMobs GenMobs;
+    private GenerateRooms GenRooms;
     private QuestManager QuestManag;
 
     private int iGen = 0;
@@ -190,7 +190,7 @@ public class MapGenerator : MonoBehaviour
         } else if (iGen == 2) {
             RG.SetExternWalls();
             SetPlayerCenterFirstRoom();
-            GenMobs.GenerateMobInRooms(nb_rooms);
+            GenRooms.GenerateMobInRooms(nb_rooms);
             QuestManag.InitTextChandelier();
             iGen++;
         } else if (iGen == 3){
@@ -203,7 +203,7 @@ public class MapGenerator : MonoBehaviour
     {
         LManager = GameObject.Find("LoadingManager").GetComponent<LoadingManager>();
         QuestManag = GameObject.Find("GameManager").GetComponent<QuestManager>();
-        GenMobs = this.GetComponent<GenerateMobs>();
+        GenRooms = this.GetComponent<GenerateRooms>();
         RG = this.GetComponent<RoomGenerator>();
         LManager.ShowLoading();
     }

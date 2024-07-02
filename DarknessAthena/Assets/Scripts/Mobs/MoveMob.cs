@@ -184,6 +184,7 @@ public class MoveMob : MonoBehaviour
             } else 
                 in_light_run_out(-0.105f);
         }
+        this.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 
     void Update()

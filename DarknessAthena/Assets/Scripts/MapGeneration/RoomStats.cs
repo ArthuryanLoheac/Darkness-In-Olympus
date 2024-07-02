@@ -7,6 +7,7 @@ public class RoomStats : MonoBehaviour
     public float sizeX;
     public float sizeY;
     public Vector3 Middle;
+    public int idRoom = 0;
 
     public void SetStats(float x, float y, Vector3 position)
     {
