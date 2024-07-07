@@ -16,6 +16,8 @@ public class GenerateRooms : MonoBehaviour
 
     public GameObject Chest;
 
+    public GameObject[] LstRooms;
+
     private GameObject GetMonster()
     {
         int Rand = Random.Range(0, 4);
@@ -31,7 +33,7 @@ public class GenerateRooms : MonoBehaviour
 
     private GameObject GetChandelier()
     {
-        int Rand = Random.Range(0, 4);
+        int Rand = Random.Range(0, 1);
         if (Rand == 0)
             return ChandelierHigh;
         else
@@ -40,28 +42,30 @@ public class GenerateRooms : MonoBehaviour
 
     private void SpawnMonster(RoomStats stats, Transform Children)
     {
-        Instantiate(GetMonster(),
-            new Vector3(Children.position.x + ((stats.sizeX / 2) * 0.16f),
-                        Children.position.y + ((stats.sizeY / 2) * 0.16f),
-                        Children.position.z),
+        GameObject RoomSpawn = LstRooms[Random.Range(0, LstRooms.Length)];
+        GameObject Monster = GetMonster();
+        Vector3 Pos = stats.transform.position;
+        GameObject Room = Instantiate(RoomSpawn,
+            new Vector3 (Pos.x + ((stats.sizeX/2) - 0.5f) * 0.16f, Pos.y + ((stats.sizeY/2) - 0.5f) * 0.16f, 0),
             Quaternion.identity, Children);
+        Room.transform.localScale = new Vector3(0.16f * stats.sizeX, 0.16f * stats.sizeY, 0.16f);
+
+        for (int i = 0; i < Room.transform.childCount; i++) {
+            Instantiate(Monster, Room.transform.GetChild(i).position, Quaternion.identity);
+        }
     }
 
     private void SpawnChest(RoomStats stats, Transform Children)
     {
         Instantiate(Chest,
-            new Vector3(Children.position.x + ((stats.sizeX / 2) * 0.16f),
-                        Children.position.y + ((stats.sizeY / 2) * 0.16f),
-                        Children.position.z),
+            stats.Middle,
             Quaternion.identity, Children);
     }
 
     private void SpawnChandelier(RoomStats stats, Transform Children)
     {
         Instantiate(GetChandelier(),
-            new Vector3(Children.position.x + ((stats.sizeX / 2) * 0.16f),
-                        Children.position.y + ((stats.sizeY / 2) * 0.16f),
-                        Children.position.z),
+            stats.Middle,
             Quaternion.identity, Children);
     }
 

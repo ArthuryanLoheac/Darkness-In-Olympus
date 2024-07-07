@@ -20,6 +20,7 @@ public class RoomStats : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x + Mathf.FloorToInt(move.x / tileSize) * tileSize,
             transform.position.y + Mathf.FloorToInt(move.y / tileSize) * tileSize, 0);
+        Middle = new Vector3((transform.position.x + (sizeX / 2f) * 0.16f), (transform.position.y + (sizeY / 2f) * 0.16f), transform.position.z);
     }
 
     public bool isOverLapping(GameObject other)
