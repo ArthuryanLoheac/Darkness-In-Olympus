@@ -201,7 +201,7 @@ public class RoomGenerator : MonoBehaviour
         }
 
         Min = new Vector2(ValueX.Min() - 0.16f, ValueY.Min() - 0.16f);
-        Max = new Vector2(ValueX.Max() + 0.16f, ValueY.Max() + 0.16f);
+        Max = new Vector2(ValueX.Max() + 0.32f, ValueY.Max() + 0.32f);
     }
 
     public void GenerateWalls(List<Vector2> PositionGrounds, float x)

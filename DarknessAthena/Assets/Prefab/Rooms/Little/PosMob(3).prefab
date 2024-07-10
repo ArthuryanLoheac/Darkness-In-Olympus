@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6893073209290878756}
   m_Layer: 0
   m_Name: Mob3
-  m_TagString: Untagged
+  m_TagString: PosMob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4374778378140364375}
   m_Layer: 0
   m_Name: Mob2
-  m_TagString: Untagged
+  m_TagString: PosMob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 7246753494133998427}
   m_Layer: 0
   m_Name: Mob1
-  m_TagString: Untagged
+  m_TagString: PosMob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

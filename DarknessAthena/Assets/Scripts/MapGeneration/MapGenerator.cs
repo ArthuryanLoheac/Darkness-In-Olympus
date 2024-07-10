@@ -7,7 +7,7 @@ using System.Linq;
 public class MapGenerator : MonoBehaviour
 {
     public GameObject Room_Indicator;
-    public int nb_rooms = 20;
+    public int nb_rooms = 10;
     private RoomGenerator RG;
     public GameObject Player;
     private GenerateRooms GenRooms;
@@ -93,10 +93,10 @@ public class MapGenerator : MonoBehaviour
     {
         if (a < b) {
             for (float y = a; y <= maxb; y += 0.16f)
-                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform).tag = "Ground";
         } else {
             for (float y = b; y <= maxa; y += 0.16f)
-                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform).tag = "Ground";
         }
     }
 
@@ -104,10 +104,10 @@ public class MapGenerator : MonoBehaviour
     {
         if (a < b) {
             for (float x = a - 0.16f; x <= maxb; x += 0.16f)
-                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform).tag = "Ground";
         } else {
             for (float x = b - 0.16f; x <= maxa; x += 0.16f)
-                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform);
+                Instantiate(RG.Grounds[Random.Range(0, RG.Grounds.Length)], new Vector3(x, y, 0), Quaternion.identity, obj.transform).tag = "Ground";
         }
     }
 
@@ -141,6 +141,7 @@ public class MapGenerator : MonoBehaviour
             p2size = vect.sizep2;
             GameObject Couloir = new GameObject("Couloir_" + i.ToString());
             Couloir.transform.SetParent(transform);
+            Couloir.tag = "Couloir";
             Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x, maxp1pos.y, maxp2pos.y);
             Instantiate_horline(p1pos.y, p2pos.y, Couloir, p1pos.x - 0.16f, maxp1pos.y, maxp2pos.y);
             Instantiate_verline(p1pos.x, p2pos.x, Couloir, p2pos.y, maxp1pos.x, maxp2pos.x);
@@ -184,14 +185,15 @@ public class MapGenerator : MonoBehaviour
         } if (iGen == 1) {
             RG.GenerateWalls(PositionGrounds, xVal);
             xVal += 0.16f;
-            LManager.setLoadingValue((xVal - RG.Min.x) / (RG.Max.x - RG.Min.x));
-            if (!(xVal < RG.Max.x))
+            LManager.setLoadingValue((xVal - RG.Min.x) / (RG.Max.x - RG.Min.x) - 0.01f);
+            if (xVal > RG.Max.x)
                 iGen++;
         } else if (iGen == 2) {
             RG.SetExternWalls();
             SetPlayerCenterFirstRoom();
-            GenRooms.GenerateMobInRooms(nb_rooms);
+            GenRooms.GenRooms(nb_rooms, RG);
             QuestManag.InitTextChandelier();
+            LManager.setLoadingValue(1);
             iGen++;
         } else if (iGen == 3){
             LManager.HideLoading();
